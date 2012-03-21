@@ -1,21 +1,11 @@
 package cn.gm.android.grabber.impl;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import android.os.Environment;
 import android.util.Log;
 import cn.gm.android.grabber.Callback;
-import cn.gm.android.grabber.Grab;
-import cn.gm.android.grabber.util.GrabberUtils;
+import cn.gm.android.grabber.Result;
 
 /**
  * 妹子图网图片抓取器
@@ -23,90 +13,105 @@ import cn.gm.android.grabber.util.GrabberUtils;
  * @author dragon
  * 
  */
-public class OOXXGrabber implements Grab<Map<String, String>> {
+public class OOXXGrabber extends AbstractGrabber {
 	private static final String tag = OOXXGrabber.class.getName();
 
-	public void excute(Object context, Callback<Map<String, String>> callback) {
-		// 抓取的网址
-		String url = "http://jandan.net/ooxx";
+	public OOXXGrabber() {
+		// 默认深度抓取
+		super.setDeepGrab(true);
 
-		// 图片选择器
-		String selector = "div.acv_comment>img,ol.commentlist>li>p>img";
+		super.setUrl("http://jandan.net/ooxx");
+		// super.setUrl("http://www.baidu.com/");
+		super.setSubDir("grabber/ooxx/");
+		super.setUserAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.79 Safari/535.11");
 
-		// 图片保存到sd卡下的子目录路径
-		String subDir = "grabber/ooxx/";
+		// 右边栏的图片：div.acv_comment>img
+		// 主栏的图片：ol.commentlist>li>p>img
+		super.setSelector("ol.commentlist>li>p>img,div.acv_comment>img");
+	}
 
-		// 抓取网页内容
-		Document doc;
-		try {
-			if (callback != null) {
-				Map<String, String> result = new HashMap<String, String>();
-				result.put("type", "ready");
-				result.put("msg", "开始抓取:" + url);
-				callback.call(result);
+	private String getPageCountSelector() {
+		// 获取总页数的选择器:<span class="current-comment-page">[1]</span>
+		return "span.current-comment-page";
+	}
+
+	@Override
+	protected void excuteDeepGrab(Object context, Callback<Result> callback,
+			Document doc) {
+		int curPage = 0;
+		String t = null;
+		// 获取分页信息
+		Elements els = doc.select(this.getPageCountSelector());
+		if (els.size() > 0)
+			t = els.get(0).text();
+		Log.d(tag, "curPage=" + t);
+		if (t != null && t.startsWith("[")) {
+			try {
+				curPage = Integer.parseInt(t.substring(1, t.length() - 1));
+			} catch (NumberFormatException e) {
 			}
-			Connection connection = Jsoup.connect(url);
-			// connection
-			// .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.79 Safari/535.11");
-			doc = connection.get();
-		} catch (IOException e) {
-			Log.e(tag, "抓取网页失败:url=" + url + ",e=" + e.getMessage());
-
+		}
+		if (curPage < 2) {
 			if (callback != null) {
-				Map<String, String> result = new HashMap<String, String>();
-				result.put("type", "error");
-				result.put("msg", "抓取失败:" + url + ",e=" + e.getMessage());
+				Result result = new Result();
+				result.setType(Result.TYPE_ERROR);
+				result.setMsg("没有找到分页信息，终止深度抓取！");
+				result.setSuccess(false);
+				result.setFrom(this.getUrl());
 				callback.call(result);
 			}
 			return;
 		}
-		Elements imgs = doc.select(selector);
-		Log.i(tag, "count＝" + imgs.size());
-		File sdCardDir = Environment.getExternalStorageDirectory();// sd卡的目录路径
-		File saveToFile;
+
 		if (callback != null) {
-			Map<String, String> result = new HashMap<String, String>();
-			result.put("type", "beforeStart");
-			result.put("count", String.valueOf(imgs.size()));
-			result.put("url", url);
-			result.put("msg", "找到" + imgs.size() + "张图片,开抓中...");
+			Result result = new Result();
+			result.setType(Result.TYPE_FINDED);
+			result.setMsg("当前为第" + curPage + "页，继续抓取其它页...");
+			result.setSuccess(true);
+			result.setFrom(this.getUrl());
 			callback.call(result);
 		}
 
-		// 循环每一个图片进行抓取并保存到sd卡指定的目录
-		String imgUrl;
-		int index = 1;
-		for (Element img : imgs) {
-			imgUrl = img.attr("src");
-			Log.d(tag, "img＝" + imgUrl);
+		// 逐页抓取
+		String srcUrl = this.getUrl();
+		for (int p = curPage - 1; p > 0; p--) {
+			// 重新设置要抓取页的url
+			this.setUrl(srcUrl + "/page-" + p);
 
-			// 图片保存到的路径
-			saveToFile = new File(sdCardDir, subDir
-					+ GrabberUtils.getFilename(imgUrl));
-
-			// 创建图片要保存到的路径
-			if (!saveToFile.getParentFile().exists()) {
-				Log.d(tag, "createDir:"
-						+ saveToFile.getParentFile().getAbsolutePath());
-				saveToFile.getParentFile().mkdirs();
-			}
-			Log.d(tag, "saveToFile:" + saveToFile.getAbsolutePath());
-
-			// 下载并保存图片
-			boolean success = GrabberUtils.download(imgUrl, saveToFile);
+			// 分页抓取时不抓取右边栏的图片
+			super.setSelector("ol.commentlist>li>p>img");
 
 			if (callback != null) {
-				Map<String, String> result = new HashMap<String, String>();
-				result.put("type", "one");
-				result.put("count", String.valueOf(imgs.size()));
-				result.put("index", String.valueOf(index));
-				result.put("success", String.valueOf(success));
-				result.put("url", imgUrl);
-				result.put("saveTo", saveToFile.getAbsolutePath());
+				Result result = new Result();
+				result.setType(Result.TYPE_READY);
+				result.setMsg("开始抓取第" + p + "页...");
+				result.setSuccess(true);
+				result.setFrom(this.getUrl());
 				callback.call(result);
 			}
 
-			index++;
+			// 避免循环抓取
+			this.setDeepGrab(false);
+
+			// 开始抓取
+			try {
+				Log.d(tag, "sleep...");
+				Thread.sleep(500);
+				Log.d(tag, "sleep");
+			} catch (InterruptedException e) {
+				Log.e(tag, e.getMessage());
+			}
+			this.excute(context, callback);
+
+			if (this.isForceStop()) {
+				Result result = new Result();
+				result.setType(Result.TYPE_ERROR);
+				result.setMsg("====强制终止====");
+				result.setSuccess(false);
+				result.setFrom(this.getUrl());
+				callback.call(result);
+				break;
+			}
 		}
 	}
 }

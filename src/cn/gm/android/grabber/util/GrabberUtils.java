@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import android.util.Log;
 
@@ -20,7 +22,7 @@ public class GrabberUtils {
 	private static final String FOLDER_SEPARATOR = "/";
 
 	/**
-	 * 获取文件名，如"/a/b/c/test.txt"返回"test.txt"
+	 * 获取文件名,并附加日期前缀，如"/a/b/c/test.txt"返回"yyyyMMdd_test.txt"
 	 * 
 	 * @param path
 	 * @return
@@ -30,8 +32,10 @@ public class GrabberUtils {
 			return null;
 		}
 		int separatorIndex = path.lastIndexOf(FOLDER_SEPARATOR);
-		return (separatorIndex != -1 ? path.substring(separatorIndex + 1)
-				: path);
+		String name = (separatorIndex != -1 ? path
+				.substring(separatorIndex + 1) : path);
+
+		return new SimpleDateFormat("yyyyMMdd_").format(new Date()) + name;
 	}
 
 	/**
@@ -69,6 +73,40 @@ public class GrabberUtils {
 		} catch (Exception e) {
 			Log.e(tag, "下载文件失败:url=" + url + ",e=" + e.getMessage());
 			return false;
+		}
+	}
+
+	/**
+	 * 计算指定时间到当前时间之间的耗时描述信息
+	 * 
+	 * @param fromDate
+	 *            开始时间
+	 * @return
+	 */
+	public static String getWasteTime(Date fromDate) {
+		return getWasteTime(fromDate, new Date());
+	}
+
+	/**
+	 * 计算指定时间范围内的耗时描述信息
+	 * 
+	 * @param startDate
+	 *            开始时间
+	 * @param endDate
+	 *            结束时间
+	 * @return
+	 */
+	public static String getWasteTime(Date startDate, Date endDate) {
+		long wt = endDate.getTime() - startDate.getTime();
+		if (wt < 1000) {
+			return wt + "ms";
+		} else if (wt < 60000) {
+			long ms = wt % 1000;
+			return ((wt - ms) / 1000) + "s " + ms + "ms";
+		} else {
+			long ms = wt % 1000;
+			long s = (wt - ms) % 60;
+			return ((wt - s - ms) / 60000) + "m " + s + "s " + ms + "ms";
 		}
 	}
 }

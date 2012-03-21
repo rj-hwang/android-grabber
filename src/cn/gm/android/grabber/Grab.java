@@ -14,4 +14,9 @@ public interface Grab<T> {
 	 *            每个文件成功抓取后的回调处理
 	 */
 	void excute(Object context, Callback<T> callback);
+
+	/**
+	 * 停止抓取
+	 */
+	void stop();
 }

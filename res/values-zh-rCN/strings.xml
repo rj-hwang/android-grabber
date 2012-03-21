@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">狂抓</string>
-    <string name="click2start">摸一下就开抓</string>
+    <string name="click2start">点击开始按钮开抓</string>
+    <string name="app_name">微抓</string>
+    <string name="btnStart">开始</string>
+    <string name="btnStop">停止</string>
+    <string name="btnQuit">退出</string>
+    <string name="deepGrab">深抓</string>
+    <string name="btnClean">清屏</string>
 
 </resources>
