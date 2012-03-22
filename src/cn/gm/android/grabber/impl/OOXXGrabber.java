@@ -94,13 +94,13 @@ public class OOXXGrabber extends AbstractGrabber {
 			this.setDeepGrab(false);
 
 			// 开始抓取
-			try {
-				Log.d(tag, "sleep...");
-				Thread.sleep(500);
-				Log.d(tag, "sleep");
-			} catch (InterruptedException e) {
-				Log.e(tag, e.getMessage());
-			}
+//			try {
+//				Log.d(tag, "sleep...");
+//				Thread.sleep(500);
+//				Log.d(tag, "sleep");
+//			} catch (InterruptedException e) {
+//				Log.e(tag, e.getMessage());
+//			}
 			this.excute(context, callback);
 
 			if (this.isForceStop()) {

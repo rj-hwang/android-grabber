@@ -185,7 +185,7 @@ public abstract class AbstractGrabber implements Grab<Result> {
 		// 图片保存到的路径
 		saveToFile = new File(sdCardDir, this.getSubDir()
 				+ GrabberUtils.getFilename(imgUrl));
-		if (saveToFile.exists()) {
+		if (GrabberUtils.isGrabbed(imgUrl)) {
 			if (callback != null) {
 				result = new Result();
 				result.setSuccess(false);

@@ -16,6 +16,7 @@ import cn.gm.android.grabber.Grab;
 import cn.gm.android.grabber.R;
 import cn.gm.android.grabber.Result;
 import cn.gm.android.grabber.impl.OOXXGrabber;
+import cn.gm.android.grabber.util.GrabberUtils;
 
 public class MainActivity extends Activity {
 	private static final String tag = MainActivity.class.getSimpleName();
@@ -89,6 +90,8 @@ public class MainActivity extends Activity {
 				super.handleMessage(msg);
 			}
 		};
+
+		info.setText(GrabberUtils.init());
 	}
 
 	private Handler handler;
