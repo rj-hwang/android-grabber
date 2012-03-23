@@ -31,15 +31,6 @@
             android:layout_toRightOf="@+id/btnStop"
             android:text="@string/btnQuit" />
 
-        <CheckBox
-            android:id="@+id/checkBox1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="14dp"
-            android:text="@string/deepGrab" />
-
         <Button
             android:id="@+id/btnClean"
             android:layout_width="wrap_content"
@@ -47,9 +38,33 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/btnQuit"
             android:text="@string/btnClean" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left" >
+
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/deepGrab" />
+
+        <EditText
+            android:id="@+id/editTextDeepGrabFrom"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/checkBox1"
+            android:ems="10"
+            android:inputType="number" />
 
     </RelativeLayout>
-
+
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"

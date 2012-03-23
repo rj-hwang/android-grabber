@@ -15,6 +15,15 @@ import cn.gm.android.grabber.Result;
  */
 public class OOXXGrabber extends AbstractGrabber {
 	private static final String tag = OOXXGrabber.class.getName();
+	private int deepGrabFrom;
+
+	public int getDeepGrabFrom() {
+		return deepGrabFrom;
+	}
+
+	public void setDeepGrabFrom(int deepGrabFrom) {
+		this.deepGrabFrom = deepGrabFrom;
+	}
 
 	public OOXXGrabber() {
 		// 默认深度抓取
@@ -38,43 +47,51 @@ public class OOXXGrabber extends AbstractGrabber {
 	@Override
 	protected void excuteDeepGrab(Object context, Callback<Result> callback,
 			Document doc) {
-		int curPage = 0;
-		String t = null;
-		// 获取分页信息
-		Elements els = doc.select(this.getPageCountSelector());
-		if (els.size() > 0)
-			t = els.get(0).text();
-		Log.d(tag, "curPage=" + t);
-		if (t != null && t.startsWith("[")) {
-			try {
-				curPage = Integer.parseInt(t.substring(1, t.length() - 1));
-			} catch (NumberFormatException e) {
+		int fromPage;
+		if (this.getDeepGrabFrom() > 0) {
+			fromPage = this.getDeepGrabFrom();
+		} else {
+			int curPage = 0;
+			String t = null;
+			// 获取分页信息
+			Elements els = doc.select(this.getPageCountSelector());
+			if (els.size() > 0)
+				t = els.get(0).text();
+			Log.d(tag, "curPage=" + t);
+			if (t != null && t.startsWith("[")) {
+				try {
+					curPage = Integer.parseInt(t.substring(1, t.length() - 1));
+				} catch (NumberFormatException e) {
+				}
 			}
-		}
-		if (curPage < 2) {
+			if (curPage < 2) {
+				if (callback != null) {
+					Result result = new Result();
+					result.setType(Result.TYPE_ERROR);
+					result.setMsg("没有找到分页信息，终止深度抓取！");
+					result.setSuccess(false);
+					result.setFrom(this.getUrl());
+					callback.call(result);
+				}
+				return;
+			}
+
 			if (callback != null) {
 				Result result = new Result();
-				result.setType(Result.TYPE_ERROR);
-				result.setMsg("没有找到分页信息，终止深度抓取！");
-				result.setSuccess(false);
+				result.setType(Result.TYPE_FINDED);
+				result.setMsg("当前为第" + curPage + "页，继续抓取其它页...");
+				result.setSuccess(true);
 				result.setFrom(this.getUrl());
 				callback.call(result);
 			}
-			return;
-		}
 
-		if (callback != null) {
-			Result result = new Result();
-			result.setType(Result.TYPE_FINDED);
-			result.setMsg("当前为第" + curPage + "页，继续抓取其它页...");
-			result.setSuccess(true);
-			result.setFrom(this.getUrl());
-			callback.call(result);
+			fromPage = curPage - 1;
+
 		}
 
 		// 逐页抓取
 		String srcUrl = this.getUrl();
-		for (int p = curPage - 1; p > 0; p--) {
+		for (int p = fromPage; p > 0; p--) {
 			// 重新设置要抓取页的url
 			this.setUrl(srcUrl + "/page-" + p);
 
@@ -94,13 +111,13 @@ public class OOXXGrabber extends AbstractGrabber {
 			this.setDeepGrab(false);
 
 			// 开始抓取
-//			try {
-//				Log.d(tag, "sleep...");
-//				Thread.sleep(500);
-//				Log.d(tag, "sleep");
-//			} catch (InterruptedException e) {
-//				Log.e(tag, e.getMessage());
-//			}
+			// try {
+			// Log.d(tag, "sleep...");
+			// Thread.sleep(500);
+			// Log.d(tag, "sleep");
+			// } catch (InterruptedException e) {
+			// Log.e(tag, e.getMessage());
+			// }
 			this.excute(context, callback);
 
 			if (this.isForceStop()) {

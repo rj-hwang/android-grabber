@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import cn.gm.android.grabber.Callback;
@@ -100,12 +101,21 @@ public class MainActivity extends Activity {
 		Log.i(tag, "startGrab...");
 		final boolean deepGrab = ((CheckBox) this.findViewById(R.id.checkBox1))
 				.isChecked();
+		String _deepGrabFrom = ((EditText) this
+				.findViewById(R.id.editTextDeepGrabFrom)).getText().toString();
+		final int deepGrabFrom;
+		if (_deepGrabFrom != null && _deepGrabFrom.length() > 0) {
+			deepGrabFrom = Integer.parseInt(_deepGrabFrom);
+		} else {
+			deepGrabFrom = 0;
+		}
 
 		// 开启一个线程进行抓取
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
 				OOXXGrabber grab = new OOXXGrabber();
 				grab.setDeepGrab(deepGrab);
+				grab.setDeepGrabFrom(deepGrabFrom);
 				MainActivity.this.grab = grab;
 				grab.excute(null, new Callback<Result>() {
 					public void call(Result result) {
