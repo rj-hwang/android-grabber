@@ -120,7 +120,7 @@ public abstract class AbstractGrabber implements Grab<Result> {
 		String imgUrl;
 		int index = 0;
 		for (Element img : imgs) {
-			imgUrl = img.attr("src");
+			imgUrl = this.rebuildImgUrl(img.attr("src"));
 			Log.d(tag, "img＝" + imgUrl);
 			this.excuteOne(context, callback, imgUrl, index, imgs.size(),
 					sdCardDir);
@@ -154,6 +154,10 @@ public abstract class AbstractGrabber implements Grab<Result> {
 			result.setData(doc);
 			callback.call(result);
 		}
+	}
+
+	protected String rebuildImgUrl(String imgUrl) {
+		return imgUrl;
 	}
 
 	// 执行深度抓取

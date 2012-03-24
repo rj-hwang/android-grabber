@@ -21,50 +21,96 @@
             android:id="@+id/btnStop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/btnStart"
+            android:layout_toRightOf="@id/btnStart"
             android:text="@string/btnStop" />
 
         <Button
             android:id="@+id/btnQuit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/btnStop"
+            android:layout_toRightOf="@id/btnStop"
             android:text="@string/btnQuit" />
 
         <Button
             android:id="@+id/btnClean"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/btnQuit"
+            android:layout_toRightOf="@id/btnQuit"
             android:text="@string/btnClean" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="left" >
+        android:tag="configItem" >
 
         <CheckBox
-            android:id="@+id/checkBox1"
-            android:layout_width="wrap_content"
+            android:id="@+id/doMeiZiTu"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:text="@string/deepGrab" />
-
-        <EditText
-            android:id="@+id/editTextDeepGrabFrom"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/checkBox1"
-            android:ems="10"
-            android:inputType="number" />
+            android:background="@android:color/darker_gray"
+            android:checked="false"
+            android:paddingBottom="0dp"
+            android:paddingLeft="40dp"
+            android:paddingTop="0dp"
+            android:text="@string/header4MeiZiTu" />
 
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/doMeiZiTu"
+            android:orientation="horizontal"
+            android:paddingLeft="40dp" >
+
+            <CheckBox
+                android:id="@+id/doMeiZiTuDeepGrab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="40dp"
+                android:text="@string/deepGrab" />
+
+            <EditText
+                android:id="@+id/doMeiZiTuDeepGrabFrom"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/doMeiZiTuDeepGrab"
+                android:inputType="number" />
+        </RelativeLayout>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:tag="configItem" >
+
+        <CheckBox
+            android:id="@+id/doMeiNvMen"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:checked="false"
+            android:paddingBottom="0dp"
+            android:paddingLeft="40dp"
+            android:paddingTop="0dp"
+            android:text="@string/header4MeiNvMen" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/doMeiNvMen"
+            android:orientation="horizontal"
+            android:paddingLeft="40dp" >
+
+            <CheckBox
+                android:id="@+id/doMeiNvMenDeepGrab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="40dp"
+                android:text="@string/deepGrab" />
+        </RelativeLayout>
+    </RelativeLayout>
+    
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
@@ -72,7 +118,7 @@
         android:scrollbars="vertical" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textView4GrabbingInfo"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/click2start" />

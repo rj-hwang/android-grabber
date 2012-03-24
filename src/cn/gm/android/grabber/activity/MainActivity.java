@@ -10,12 +10,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import cn.gm.android.grabber.Callback;
 import cn.gm.android.grabber.Grab;
 import cn.gm.android.grabber.R;
 import cn.gm.android.grabber.Result;
+import cn.gm.android.grabber.impl.MeiNvMenGrabber;
 import cn.gm.android.grabber.impl.OOXXGrabber;
 import cn.gm.android.grabber.util.GrabberUtils;
 
@@ -23,7 +23,6 @@ public class MainActivity extends Activity {
 	private static final String tag = MainActivity.class.getSimpleName();
 
 	private TextView info;
-	ScrollView scroll;
 	private boolean doing = false;
 	private Grab<Result> grab;
 
@@ -31,8 +30,7 @@ public class MainActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		scroll = (ScrollView) findViewById(R.id.scrollView1);
-		info = (TextView) findViewById(R.id.textView1);
+		info = (TextView) findViewById(R.id.textView4GrabbingInfo);
 
 		// 开始事件
 		Button btnStart = (Button) findViewById(R.id.btnStart);
@@ -99,34 +97,67 @@ public class MainActivity extends Activity {
 
 	private void startGrab() {
 		Log.i(tag, "startGrab...");
-		final boolean deepGrab = ((CheckBox) this.findViewById(R.id.checkBox1))
+
+		// 妹子图的配置参数
+		final boolean doMeiZiTu = ((CheckBox) this.findViewById(R.id.doMeiZiTu))
 				.isChecked();
+		final boolean doMeiZiTuDeepGrab = ((CheckBox) this
+				.findViewById(R.id.doMeiZiTuDeepGrab)).isChecked();
 		String _deepGrabFrom = ((EditText) this
-				.findViewById(R.id.editTextDeepGrabFrom)).getText().toString();
-		final int deepGrabFrom;
+				.findViewById(R.id.doMeiZiTuDeepGrabFrom)).getText().toString();
+		final int doMeiZiTuDeepGrabFrom;
 		if (_deepGrabFrom != null && _deepGrabFrom.length() > 0) {
-			deepGrabFrom = Integer.parseInt(_deepGrabFrom);
+			doMeiZiTuDeepGrabFrom = Integer.parseInt(_deepGrabFrom);
 		} else {
-			deepGrabFrom = 0;
+			doMeiZiTuDeepGrabFrom = 0;
 		}
+
+		// 美女门的配置参数
+		final boolean doMeiNvMen = ((CheckBox) this
+				.findViewById(R.id.doMeiNvMen)).isChecked();
+		final boolean doMeiNvMenDeepGrab = ((CheckBox) this
+				.findViewById(R.id.doMeiNvMenDeepGrab)).isChecked();
+
+		Log.i(tag, "doMeiZiTu=" + doMeiZiTu);
+		Log.i(tag, "doMeiNvMen=" + doMeiNvMen);
 
 		// 开启一个线程进行抓取
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
-				OOXXGrabber grab = new OOXXGrabber();
-				grab.setDeepGrab(deepGrab);
-				grab.setDeepGrabFrom(deepGrabFrom);
-				MainActivity.this.grab = grab;
-				grab.excute(null, new Callback<Result>() {
-					public void call(Result result) {
-						// 将回调信息传给界面的UI线程显示
-						Message message = new Message();
-						Bundle data = new Bundle();
-						data.putString("msg", result.getMsg());
-						message.setData(data);
-						MainActivity.this.handler.sendMessage(message);
-					}
-				});
+				// 抓取妹子图
+				if (doMeiZiTu) {
+					OOXXGrabber grab = new OOXXGrabber();
+					grab.setDeepGrab(doMeiZiTuDeepGrab);
+					grab.setDeepGrabFrom(doMeiZiTuDeepGrabFrom);
+					MainActivity.this.grab = grab;
+					grab.excute(null, new Callback<Result>() {
+						public void call(Result result) {
+							// 将回调信息传给界面的UI线程显示
+							Message message = new Message();
+							Bundle data = new Bundle();
+							data.putString("msg", result.getMsg());
+							message.setData(data);
+							MainActivity.this.handler.sendMessage(message);
+						}
+					});
+				}
+
+				// 抓取美女门
+				if (doMeiNvMen) {
+					MeiNvMenGrabber grab = new MeiNvMenGrabber();
+					grab.setDeepGrab(doMeiNvMenDeepGrab);
+					MainActivity.this.grab = grab;
+					grab.excute(null, new Callback<Result>() {
+						public void call(Result result) {
+							// 将回调信息传给界面的UI线程显示
+							Message message = new Message();
+							Bundle data = new Bundle();
+							data.putString("msg", result.getMsg());
+							message.setData(data);
+							MainActivity.this.handler.sendMessage(message);
+						}
+					});
+				}
 
 				MainActivity.this.grab = null;
 				doing = false;

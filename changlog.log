@@ -1,3 +1,6 @@
+== 0.4 2012-03-24 ==
+1) 增加美女门首页(http://www.mmeinv.com/)的那5个热门美女照相册的抓取
+
 == 0.3 2012-03-23 ==
 1) 图片保存的文件名改为yyyyMMddHHmmssSSSS格式
 2) 记录抓取历史到文件/sdcard/grabber/records.log
