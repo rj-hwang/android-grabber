@@ -1,5 +1,7 @@
 package cn.gm.android.grabber.activity;
 
+import java.io.InputStream;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +17,7 @@ import cn.gm.android.grabber.Callback;
 import cn.gm.android.grabber.Grab;
 import cn.gm.android.grabber.R;
 import cn.gm.android.grabber.Result;
+import cn.gm.android.grabber.cfg.Config;
 import cn.gm.android.grabber.impl.MeiNvMenGrabber;
 import cn.gm.android.grabber.impl.OOXXGrabber;
 import cn.gm.android.grabber.util.GrabberUtils;
@@ -91,8 +94,20 @@ public class MainActivity extends Activity {
 		};
 
 		info.setText(GrabberUtils.init());
+
+		// 加载配置文件
+		config = new Config();
+		InputStream inputStream = this.getClass().getClassLoader()
+				.getResourceAsStream("assets/config.xml");
+		try {
+			config.load(inputStream);
+			System.out.println(config.toString());
+		} catch (Throwable e) {
+			Log.e(tag, e.getMessage(), e);
+		}
 	}
 
+	private Config config;
 	private Handler handler;
 
 	private void startGrab() {

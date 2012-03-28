@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 微抓配置文件 create by dragon 2012-03-28 -->
+<grabber>
+	<userAgent>Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.79 Safari/535.11</userAgent>
+	<items>
+		<!-- "妹子图"网的抓取配置 -->
+		<item id="item01">
+			<name>妹子图</name>
+			<type>Multi</type>
+			<dir>妹子图</dir>
+			<url>http://jandan.net/ooxx</url>
+			<selector>ol.commentlist>li>p>img</selector>
+			<deep>true</deep>
+			<pagingUrl>{url}/page-{page}</pagingUrl>
+			<pagingSelector>span.current-comment-page</pagingSelector>
+			<pagingRegx>\[{page}\]</pagingRegx>
+		</item>
+		
+		<!-- "美女门"网某个相册的抓取配置 -->
+		<item id="item02">
+			<name>冬日里的女人</name>
+			<type>Multi</type>
+			<dir>冬日里的女人</dir>
+			<url>http://www.mmeinv.com/post/wangqiuzi/8.html</url>
+			<selector>div.pic img</selector>
+			<deep>true</deep>
+			<pagingUrl>{urlName}_{page}.html</pagingUrl>
+			<pagingSelector>ul.pagelist>li>a</pagingSelector>
+			<pagingRegx>共{page}页</pagingRegx>
+		</item>
+		
+		<!-- "美女门"网"今日美女拍行榜"导航的抓取配置 -->
+		<item id="nav01">
+			<type>Nav</type>
+			<name>美女门.今日美女拍行榜</name>
+			<dir>美女门</dir>
+			<url>http://www.mmeinv.com</url>
+			<selector>div.content>ul>li>a</selector>
+			<itemId>item4nav01</itemId>
+		</item>
+		<item id="item4nav01" nested="true">
+			<type>Multi</type>
+			<name>{title}</name>
+			<dir>{parent}/{title}</dir>
+			<url>{href}</url>
+			<selector>div.pic>a>img</selector>
+			<deep>true</deep>
+			<pagingUrl>{urlName}_{page}.html</pagingUrl>
+			<pagingSelector>ul.pagelist>li>a</pagingSelector>
+			<pagingRegx>共{page}页</pagingRegx>
+		</item>
+	</items>
+</grabber>
