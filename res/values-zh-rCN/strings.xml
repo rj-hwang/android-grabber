@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="click2start">点击开始按钮开抓</string>
     <string name="app_name">微抓</string>
-    <string name="btnStart">开始</string>
-    <string name="btnStop">停止</string>
-    <string name="btnQuit">退出</string>
-    <string name="deepGrab">深抓</string>
-    <string name="btnClean">清屏</string>
-    <string name="header4MeiZiTu">妹子图: jandan.net/ooxx</string>
-    <string name="header4MeiNvMen">美女门: www.mmeinv.com</string>
-
+    <string name="click2start">从点击 菜单/抓取 开始</string>
+    <string name="main_menu_start">开抓</string>
+    <string name="main_menu_stop">停抓</string>
+    <string name="main_menu_clean">清屏</string>
+    <string name="main_menu_setting">设置</string>
+    <string name="main_menu_about">关于</string>
 </resources>

@@ -28,6 +28,7 @@ public class Item {
 		Nav
 	};
 
+	private boolean selected;// 是否选中
 	private String id;// ID
 	private String name;// 名称
 	private Type type;// 类型
@@ -115,6 +116,14 @@ public class Item {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 
 	public String getName() {
@@ -214,6 +223,7 @@ public class Item {
 			json.put("type", this.getType());
 			json.put("dir", this.getDir());
 			json.put("url", this.getUrl());
+			json.put("selected", this.isSelected());
 			json.put("selector", this.getSelector());
 			json.put("deep", this.isDeep());
 			json.put("pagingUrl", this.getPagingUrl());

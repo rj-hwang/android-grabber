@@ -1,118 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linearLayout1"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainView"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:baselineAligned="false"
-    android:orientation="vertical" >
+    android:layout_height="fill_parent" >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="left" >
+        android:layout_height="fill_parent"
+        android:layout_gravity="center" >
 
-        <Button
-            android:id="@+id/btnStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btnStart" />
-
-        <Button
-            android:id="@+id/btnStop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/btnStart"
-            android:text="@string/btnStop" />
-
-        <Button
-            android:id="@+id/btnQuit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/btnStop"
-            android:text="@string/btnQuit" />
-
-        <Button
-            android:id="@+id/btnClean"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/btnQuit"
-            android:text="@string/btnClean" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:tag="configItem" >
-
-        <CheckBox
-            android:id="@+id/doMeiZiTu"
+        <ImageView
+            android:id="@+id/imageView1"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/darker_gray"
-            android:checked="false"
-            android:paddingBottom="0dp"
-            android:paddingLeft="40dp"
-            android:paddingTop="0dp"
-            android:text="@string/header4MeiZiTu" />
+            android:layout_height="fill_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/main" />
+    </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/doMeiZiTu"
-            android:orientation="horizontal"
-            android:paddingLeft="40dp" >
-
-            <CheckBox
-                android:id="@+id/doMeiZiTuDeepGrab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="40dp"
-                android:text="@string/deepGrab" />
-
-            <EditText
-                android:id="@+id/doMeiZiTuDeepGrabFrom"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/doMeiZiTuDeepGrab"
-                android:inputType="number" />
-        </RelativeLayout>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:tag="configItem" >
-
-        <CheckBox
-            android:id="@+id/doMeiNvMen"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/darker_gray"
-            android:checked="false"
-            android:paddingBottom="0dp"
-            android:paddingLeft="40dp"
-            android:paddingTop="0dp"
-            android:text="@string/header4MeiNvMen" />
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/doMeiNvMen"
-            android:orientation="horizontal"
-            android:paddingLeft="40dp" >
-
-            <CheckBox
-                android:id="@+id/doMeiNvMenDeepGrab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="40dp"
-                android:text="@string/deepGrab" />
-        </RelativeLayout>
-    </RelativeLayout>
-    
     <ScrollView
-        android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical" >
@@ -121,7 +26,8 @@
             android:id="@+id/textView4GrabbingInfo"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/click2start" />
+            android:text="@string/click2start"
+            android:textColor="@android:color/darker_gray" />
     </ScrollView>
 
-</LinearLayout>
+</FrameLayout>

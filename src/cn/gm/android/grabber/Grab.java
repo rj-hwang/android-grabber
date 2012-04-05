@@ -6,14 +6,12 @@ package cn.gm.android.grabber;
  * @author dragon
  * 
  */
-public interface Grab<T> {
+public interface Grab {
 	/**
-	 * @param context
-	 *            上下文
 	 * @param callback
 	 *            每个文件成功抓取后的回调处理
 	 */
-	void excute(Object context, Callback<T> callback);
+	void start(Callback<Event> callback);
 
 	/**
 	 * 停止抓取

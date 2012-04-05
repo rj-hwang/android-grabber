@@ -1,6 +1,7 @@
 package cn.gm.android.grabber.util;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -43,10 +44,12 @@ public class GrabberUtils {
 			File cfg = new File(sdCardDir, "grabber/records.log");
 			if (!cfg.exists()) {
 				// 创建记录文件
-				FileWriter writer = new FileWriter(cfg);
-				writer.write("# " + df.format(new Date()) + " by dragon");
-				writer.close();
-				Log.d(tag, "create file:" + cfg.getAbsolutePath());
+				if (!cfg.getParentFile().exists()) {
+					cfg.getParentFile().mkdirs();
+				}
+				BufferedWriter out = new BufferedWriter(new FileWriter(cfg));
+				out.write("# " + df.format(new Date()) + " by dragon");
+				out.close();
 				return "没有抓取记录";
 			} else {
 				Log.d(tag, "load config file:" + cfg.getAbsolutePath());
@@ -211,5 +214,49 @@ public class GrabberUtils {
 	 */
 	public static boolean isGrabbed(String url) {
 		return records.containsKey(url);
+	}
+
+	/**
+	 * 保存文件流到指定文件
+	 * 
+	 * @param inputStream
+	 * @param root
+	 *            文件所在根目录
+	 * @param dir
+	 *            子目录
+	 * @param src
+	 *            文件抓取的原始路径
+	 */
+	public static File storeFile(InputStream inputStream, File root,
+			String dir, String src) {
+		// 保存到的文件
+		File saveToFile = new File(root, dir + "/"
+				+ GrabberUtils.getFilename(src));
+
+		// 创建要保存到的路径
+		if (!saveToFile.getParentFile().exists()) {
+			saveToFile.getParentFile().mkdirs();
+		}
+
+		byte[] bs = new byte[1024];// 1K的数据缓冲
+		int len;// 读取到的数据长度
+		try {
+			// 输出的文件流
+			OutputStream os = new FileOutputStream(saveToFile);
+
+			// 开始读取
+			while ((len = inputStream.read(bs)) != -1) {
+				os.write(bs, 0, len);
+			}
+			os.close();
+
+			// 添加一个成功抓取记录
+			GrabberUtils.addGrabRecord(src);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return saveToFile;
 	}
 }

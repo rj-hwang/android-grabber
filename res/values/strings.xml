@@ -2,13 +2,11 @@
 <resources>
 
     <string name="app_name">grabber</string>
-    <string name="click2start">Click Start Button to grab</string>
-    <string name="btnStart">Start</string>
-    <string name="btnStop">Stop</string>
-    <string name="btnQuit">Quit</string>
-    <string name="deepGrab">DeepGrab</string>
-    <string name="btnClean">Clean</string>
-    <string name="header4MeiZiTu">Sister figure: jandan.net/ooxx</string>
-    <string name="header4MeiNvMen">Beauty door: www.mmeinv.com</string>
-    
+    <string name="click2start">Click Menu/Start to grab</string>
+    <string name="main_menu_start">Start</string>
+    <string name="main_menu_stop">Stop</string>
+    <string name="main_menu_clean">Clean</string>
+    <string name="main_menu_setting">Setting</string>
+    <string name="main_menu_about">About</string>
+
 </resources>

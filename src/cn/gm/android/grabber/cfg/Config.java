@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 
+import android.util.Log;
 import android.util.Xml;
 import cn.gm.android.grabber.cfg.Item.Type;
 
@@ -18,8 +19,25 @@ import cn.gm.android.grabber.cfg.Item.Type;
  * 
  */
 public class Config {
+	private static final String tag = Config.class.getSimpleName();
 	private String userAgent;// 请求时使用的user-agent
 	private List<Item> items;// 抓取项的配置列表
+	private static Config instance;// 单例
+
+	public static Config getInstance() {
+		if (instance == null) {
+			instance = new Config();
+			InputStream inputStream = Config.class.getClassLoader()
+					.getResourceAsStream("assets/config.xml");
+			try {
+				instance.load(inputStream);
+				Log.d(tag, instance.toString());
+			} catch (Throwable e) {
+				Log.e(tag, e.getMessage(), e);
+			}
+		}
+		return instance;
+	}
 
 	public String getUserAgent() {
 		return userAgent;
@@ -63,6 +81,9 @@ public class Config {
 					}
 				} else if ("itemId".equals(name)) {
 					item.setItemId(parser.nextText().toString());
+				} else if ("selected".equals(name)) {
+					item.setSelected("true"
+							.equals(parser.nextText().toString()));
 				} else if ("userAgent".equals(name)) {
 					this.setUserAgent(parser.nextText().toString());
 				} else if ("name".equals(name)) {
@@ -119,6 +140,7 @@ public class Config {
 
 	/**
 	 * 获取指定ID的抓取配置项
+	 * 
 	 * @param itemId
 	 * @return
 	 */
