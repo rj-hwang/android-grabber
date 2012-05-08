@@ -4,8 +4,16 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 import org.xmlpull.v1.XmlPullParser;
 
 import android.util.Log;
@@ -30,8 +38,9 @@ public class Config {
 			InputStream inputStream = Config.class.getClassLoader()
 					.getResourceAsStream("assets/config.xml");
 			try {
-				instance.load(inputStream);
+				// instance.load(inputStream);
 				Log.d(tag, instance.toString());
+				instance.load2(inputStream);
 			} catch (Throwable e) {
 				Log.e(tag, e.getMessage(), e);
 			}
@@ -150,5 +159,47 @@ public class Config {
 				return item;
 		}
 		return null;
+	}
+
+	/**
+	 * 加载配置信息
+	 * 
+	 * @param inputStream
+	 * @throws Throwable
+	 */
+	public void load2(InputStream in) throws Throwable {
+
+		// Create DOM parser
+		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
+				.newInstance();
+		documentBuilderFactory.setNamespaceAware(true);
+		documentBuilderFactory.setIgnoringElementContentWhitespace(true);
+
+		DocumentBuilder documentBuilder;
+		documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+		// Parse XML content
+		Document doc = documentBuilder.parse(in);
+
+		// Extract the name and the version of the Open XML file
+		// generator
+		NodeList nodes = doc.getElementsByTagName("grabber").item(0)
+				.getChildNodes();
+		System.out.println("grabber1=" + nodes.getLength());
+		Node node;
+		for (int i = 0; i < nodes.getLength(); i++) {
+			node = nodes.item(i);
+			if (node.getNodeType() == Node.ELEMENT_NODE) {
+				System.out.println("node=" + node.getNodeName());
+			} else if (node.getNodeType() == Node.TEXT_NODE) {
+				System.out.println("text=" + node.toString());
+			}else{
+				System.out.println("----");
+			}
+		}
+
+		// Element el = (Element) node;
+		// System.out.println("grabber2=" + el.toString());
+
 	}
 }
