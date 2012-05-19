@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore" theme="sketch">
+  <widgets xsi:type="model:WidgetGroup" id="283" x="8" y="5" measuredWidth="335" measuredHeight="526">
+    <widgets xsi:type="model:Panel" id="2" y="45" width="335" height="481" measuredWidth="335" measuredHeight="481" background="#000000" foreground="#ffffff" border="none"/>
+    <widgets xsi:type="model:WidgetGroup" id="12" y="21" measuredWidth="335" measuredHeight="25">
+      <widgets xsi:type="model:Panel" id="4" width="335" height="25" measuredWidth="335" measuredHeight="25" background="#000000" foreground="#ffffff" border="none"/>
+      <widgets xsi:type="model:Label" id="5" x="294" y="2" text="00:30" measuredWidth="37" measuredHeight="21" foreground="#ffffff">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Icon" id="7" x="256" y="5" measuredWidth="16" measuredHeight="16" foreground="#ffffff" icon="signal (small)"/>
+      <widgets xsi:type="model:Icon" id="8" x="274" y="5" measuredWidth="16" measuredHeight="16" foreground="#ffffff" icon="battery (small)"/>
+      <widgets xsi:type="model:Icon" id="9" x="238" y="5" measuredWidth="16" measuredHeight="16" foreground="#ffffff" icon="wifi (small)"/>
+      <widgets xsi:type="model:Icon" id="10" x="5" y="5" measuredWidth="16" measuredHeight="16" foreground="#ffffff" icon="comments (small)"/>
+      <widgets xsi:type="model:Icon" id="11" x="25" y="5" measuredWidth="16" measuredHeight="16" foreground="#ffffff" icon="email (small)"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="130" y="478" measuredWidth="335" measuredHeight="48">
+      <widgets xsi:type="model:Panel" id="128" width="335" height="48" measuredWidth="335" measuredHeight="48" background="#444444" border="none"/>
+      <widgets xsi:type="model:Icon" id="138" x="293" y="8" measuredWidth="32" measuredHeight="32" foreground="#666666" icon="print-preview (large)"/>
+      <widgets xsi:type="model:Icon" id="186" x="10" y="8" measuredWidth="32" measuredHeight="32" foreground="#ffffff" icon="play (large)"/>
+      <widgets xsi:type="model:Icon" id="187" x="150" y="8" measuredWidth="32" measuredHeight="32" foreground="#ffffff" icon="help (large)"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="168" y="118" measuredWidth="335" measuredHeight="55">
+      <widgets xsi:type="model:Label" id="169" x="18" text="妹子图-全站" measuredWidth="106" measuredHeight="29" foreground="#ffffff">
+        <font size="18"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="170" x="17" y="27" text="/grabber/妹子图" measuredWidth="100" measuredHeight="23" foreground="#999999">
+        <font size="12"/>
+      </widgets>
+      <widgets xsi:type="model:Checkbox" id="171" x="302" y="15" measuredWidth="21" measuredHeight="23" selected="true">
+        <font size="12"/>
+      </widgets>
+      <widgets xsi:type="model:HLine" id="172" y="49" width="335" measuredWidth="335" measuredHeight="6" foreground="#666666"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="188" y="245" measuredWidth="335" measuredHeight="55">
+      <widgets xsi:type="model:Label" id="189" x="18" text="美女门-全站" measuredWidth="106" measuredHeight="29" foreground="#ffffff">
+        <font size="18"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="190" x="17" y="27" text="/grabber/美女门" measuredWidth="100" measuredHeight="23" foreground="#999999">
+        <font size="12"/>
+      </widgets>
+      <widgets xsi:type="model:Checkbox" id="191" x="302" y="16" measuredWidth="21" measuredHeight="23" selected="true">
+        <font size="12"/>
+      </widgets>
+      <widgets xsi:type="model:HLine" id="192" y="49" width="335" measuredWidth="335" measuredHeight="6" foreground="#666666"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="193" y="307" measuredWidth="335" measuredHeight="55">
+      <widgets xsi:type="model:Label" id="194" x="18" text="帅哥网" measuredWidth="59" measuredHeight="27" foreground="#ffffff">
+        <font size="18"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="195" x="17" y="27" text="/grabber/帅哥网" measuredWidth="100" measuredHeight="23" foreground="#999999">
+        <font size="12"/>
+      </widgets>
+      <widgets xsi:type="model:Checkbox" id="196" x="302" y="18" measuredWidth="21" measuredHeight="23" selected="true">
+        <font size="12"/>
+      </widgets>
+      <widgets xsi:type="model:HLine" id="197" y="49" width="335" measuredWidth="335" measuredHeight="6" foreground="#666666"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="198" y="181" measuredWidth="335" measuredHeight="55">
+      <widgets xsi:type="model:Label" id="199" x="18" text="美女门-某相册" measuredWidth="124" measuredHeight="29" foreground="#ffffff">
+        <font size="18"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="200" x="17" y="27" text="/grabber/美女门/某相册" measuredWidth="142" measuredHeight="23" foreground="#999999">
+        <font size="12"/>
+      </widgets>
+      <widgets xsi:type="model:Checkbox" id="201" x="302" y="16" measuredWidth="21" measuredHeight="23" selected="true">
+        <font size="12"/>
+      </widgets>
+      <widgets xsi:type="model:HLine" id="202" y="49" width="335" measuredWidth="335" measuredHeight="6" foreground="#666666"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="209" x="78" y="437" measuredWidth="178" measuredHeight="42">
+      <widgets xsi:type="model:Panel" id="207" width="178" height="42" measuredWidth="178" measuredHeight="42" background="#666666" alpha="128" border="none"/>
+      <widgets xsi:type="model:Text" id="205" y="7" width="178" text="正在抓取 妹子图-首页&#xA;3/21" measuredWidth="178" measuredHeight="34" textAlignment="Center" foreground="#ffffff">
+        <font size="14" italic="true" underline="false"/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="241" x="173" y="118" measuredWidth="90" measuredHeight="39">
+      <widgets xsi:type="model:Panel" id="240" width="90" height="39" measuredWidth="90" measuredHeight="39" background="#000000" foreground="#ff0000" border="solid-rounded"/>
+      <widgets xsi:type="model:Label" id="219" x="8" y="10" text="抓取配置项" measuredWidth="75" measuredHeight="22" foreground="#ff9900">
+        <font size="14"/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="234" y="55" measuredWidth="335" measuredHeight="55">
+      <widgets xsi:type="model:Label" id="236" x="18" text="妹子图-首页" measuredWidth="106" measuredHeight="29" foreground="#ffffff">
+        <font size="18"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="237" x="17" y="27" text="/grabber/妹子图" measuredWidth="100" measuredHeight="23" foreground="#999999">
+        <font size="12"/>
+      </widgets>
+      <widgets xsi:type="model:Checkbox" id="238" x="302" y="16" measuredWidth="21" measuredHeight="23" selected="true">
+        <font size="12"/>
+      </widgets>
+      <widgets xsi:type="model:HLine" id="239" y="49" width="335" measuredWidth="335" measuredHeight="6" foreground="#666666"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="274" x="173" y="380" measuredWidth="74" measuredHeight="69">
+      <widgets xsi:type="model:Panel" id="275" width="74" height="39" measuredWidth="74" measuredHeight="39" background="#000000" foreground="#ff0000" border="solid-rounded"/>
+      <widgets xsi:type="model:Label" id="276" x="8" y="10" text="抓取进度" measuredWidth="61" measuredHeight="22" foreground="#ff9900">
+        <font size="14"/>
+      </widgets>
+      <widgets xsi:type="model:Arrow" id="277" x="25" y="38" width="18" height="31" measuredWidth="18" measuredHeight="31" annotation="true" foreground="#ff9900" direction="bottom"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="278" x="22" y="380" measuredWidth="55" measuredHeight="114">
+      <widgets xsi:type="model:Panel" id="279" width="55" height="39" measuredWidth="55" measuredHeight="39" background="#000000" foreground="#ff0000" border="solid-rounded"/>
+      <widgets xsi:type="model:Label" id="280" x="8" y="10" text="操作条" measuredWidth="47" measuredHeight="22" foreground="#ff9900">
+        <font size="14"/>
+      </widgets>
+      <widgets xsi:type="model:Arrow" id="281" x="25" y="38" width="18" height="76" measuredWidth="18" measuredHeight="76" annotation="true" foreground="#ff9900" left="false" right="true"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="282" text="主界面：" measuredWidth="61" measuredHeight="22">
+      <font size="14" bold="true" italic="true"/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="256" x="366" y="29" measuredWidth="335" measuredHeight="106">
+    <widgets xsi:type="model:WidgetGroup" id="166" y="21" measuredWidth="335" measuredHeight="58">
+      <widgets xsi:type="model:Panel" id="226" width="335" height="58" measuredWidth="335" measuredHeight="58" background="#000000"/>
+      <widgets xsi:type="model:Label" id="162" x="18" y="3" text="妹子图-首页" measuredWidth="106" measuredHeight="29" foreground="#ffffff">
+        <font size="18"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="164" x="17" y="30" text="/grabber/妹子图" measuredWidth="100" measuredHeight="23" foreground="#999999">
+        <font size="12"/>
+      </widgets>
+      <widgets xsi:type="model:Checkbox" id="165" x="302" y="19" measuredWidth="21" measuredHeight="23" selected="true">
+        <font size="12"/>
+      </widgets>
+      <widgets xsi:type="model:HLine" id="167" y="52" width="335" measuredWidth="335" measuredHeight="6" foreground="#666666"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="257" text="抓取配置项：" measuredWidth="89" measuredHeight="22">
+      <font size="14" bold="true" italic="true"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="291" x="106" text="标题" measuredWidth="38" measuredHeight="39" background="#ffff00">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="292" x="88" y="67" text="保存路径" measuredWidth="66" measuredHeight="39" background="#ffff00" position="topLeft">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="293" x="250" y="67" text="是否抓取" measuredWidth="66" measuredHeight="39" background="#ffff00" position="topRight">
+      <font size="14"/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="251" x="366" y="160" measuredWidth="335" measuredHeight="98">
+    <widgets xsi:type="model:Label" id="222" text="操作条 - 开抓前：" measuredWidth="122" measuredHeight="25">
+      <font size="14" bold="true" italic="true"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="242" y="20" measuredWidth="335" measuredHeight="48">
+      <widgets xsi:type="model:Panel" id="243" width="335" height="48" measuredWidth="335" measuredHeight="48" background="#444444" border="none"/>
+      <widgets xsi:type="model:Icon" id="244" x="293" y="8" measuredWidth="32" measuredHeight="32" foreground="#666666" icon="print-preview (large)"/>
+      <widgets xsi:type="model:Icon" id="245" x="10" y="8" measuredWidth="32" measuredHeight="32" foreground="#ffffff" icon="play (large)"/>
+      <widgets xsi:type="model:Icon" id="246" x="150" y="8" measuredWidth="32" measuredHeight="32" foreground="#ffffff" icon="help (large)"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="288" x="18" y="56" text="开抓" measuredWidth="38" measuredHeight="39" background="#ffff00" position="topLeft">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="289" x="82" y="56" text="查看帮助信息" measuredWidth="94" measuredHeight="39" background="#ffff00" position="topRight">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="290" x="194" y="56" text="边抓边看(禁用状态)" measuredWidth="132" measuredHeight="42" background="#ffff00" position="topRight">
+      <font size="14"/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="258" x="366" y="284" measuredWidth="335" measuredHeight="96">
+    <widgets xsi:type="model:Label" id="260" text="操作条 - 开抓后：" measuredWidth="122" measuredHeight="25">
+      <font size="14" bold="true" italic="true"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="261" y="20" measuredWidth="335" measuredHeight="48">
+      <widgets xsi:type="model:Panel" id="262" width="335" height="48" measuredWidth="335" measuredHeight="48" background="#444444" border="none"/>
+      <widgets xsi:type="model:Icon" id="263" x="293" y="8" measuredWidth="32" measuredHeight="32" foreground="#ffffff" icon="print-preview (large)"/>
+      <widgets xsi:type="model:Icon" id="264" x="10" y="8" measuredWidth="32" measuredHeight="32" foreground="#ffffff" icon="stop-media (large)"/>
+      <widgets xsi:type="model:Icon" id="265" x="150" y="8" measuredWidth="32" measuredHeight="32" foreground="#ffffff" icon="help (large)"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="285" x="18" y="57" text="停抓" measuredWidth="38" measuredHeight="39" background="#ffff00" position="topLeft">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="286" x="82" y="57" text="查看帮助信息" measuredWidth="94" measuredHeight="39" background="#ffff00" position="topRight">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="287" x="194" y="57" text="切换到边抓边看界面" measuredWidth="136" measuredHeight="39" background="#ffff00" position="topRight">
+      <font size="14"/>
+    </widgets>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font/>
+</model:Screen>

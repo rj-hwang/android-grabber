@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore" theme="sketch">
+  <widgets xsi:type="model:Panel" id="2" x="8" y="50" width="335" height="481" measuredWidth="335" measuredHeight="481" background="#000000" foreground="#ffffff" border="none"/>
+  <widgets xsi:type="model:WidgetGroup" id="12" x="8" y="26" measuredWidth="335" measuredHeight="25">
+    <widgets xsi:type="model:Panel" id="4" width="335" height="25" measuredWidth="335" measuredHeight="25" background="#000000" foreground="#ffffff" border="none"/>
+    <widgets xsi:type="model:Label" id="5" x="294" y="2" text="00:30" measuredWidth="37" measuredHeight="21" foreground="#ffffff">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Icon" id="7" x="256" y="5" measuredWidth="16" measuredHeight="16" foreground="#ffffff" icon="signal (small)"/>
+    <widgets xsi:type="model:Icon" id="8" x="274" y="5" measuredWidth="16" measuredHeight="16" foreground="#ffffff" icon="battery (small)"/>
+    <widgets xsi:type="model:Icon" id="9" x="238" y="5" measuredWidth="16" measuredHeight="16" foreground="#ffffff" icon="wifi (small)"/>
+    <widgets xsi:type="model:Icon" id="10" x="5" y="5" measuredWidth="16" measuredHeight="16" foreground="#ffffff" icon="comments (small)"/>
+    <widgets xsi:type="model:Icon" id="11" x="25" y="5" measuredWidth="16" measuredHeight="16" foreground="#ffffff" icon="email (small)"/>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="130" x="18" y="491" measuredWidth="32" measuredHeight="32">
+    <widgets xsi:type="model:Icon" id="186" measuredWidth="32" measuredHeight="32" foreground="#ffffff" icon="arrow-left (large)"/>
+  </widgets>
+  <widgets xsi:type="model:Image" id="311" x="104" y="88" width="128" height="128" measuredWidth="128" measuredHeight="128" src="assets/pic01.jpg"/>
+  <widgets xsi:type="model:Label" id="337" x="8" y="5" text="帮助界面：" measuredWidth="75" measuredHeight="22">
+    <font size="14" bold="true" italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="338" x="120" y="224" text="微抓" measuredWidth="101" measuredHeight="57" foreground="#eeeeee">
+    <font size="48" bold="true" italic="true" underline="false"/>
+  </widgets>
+  <widgets xsi:type="model:Tooltip" id="348" x="220" y="60" text="logo" measuredWidth="40" measuredHeight="42" background="#ffff00">
+    <font size="14"/>
+  </widgets>
+  <widgets xsi:type="model:Tooltip" id="349" x="32" y="520" text="返回" measuredWidth="38" measuredHeight="39" background="#ffff00" position="topLeft">
+    <font size="14"/>
+  </widgets>
+  <widgets xsi:type="model:Tooltip" id="350" x="88" y="291" text="版本号" measuredWidth="52" measuredHeight="39" background="#ffff00" position="topRight">
+    <font size="14"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="339" x="119" y="280" text="v1.0_2012-07-01" measuredWidth="102" measuredHeight="21" foreground="#999999">
+    <font italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Tooltip" id="351" x="180" y="291" text="发布日期" measuredWidth="66" measuredHeight="39" background="#ffff00" position="topLeft">
+    <font size="14"/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font/>
+</model:Screen>

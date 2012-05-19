@@ -43,8 +43,12 @@ public class Item implements Command {
 		this.type = type;
 	}
 
+	private boolean excuted;
+
 	@Override
 	public void excute() throws IOException {
+		if (excuted)
+			return;
 		// 抓取数据
 		URL url = new URL(this.from);
 		URLConnection con = url.openConnection();
@@ -66,5 +70,6 @@ public class Item implements Command {
 			os.write(bs, 0, len);
 		}
 		os.close();
+		excuted = true;
 	}
 }
