@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:WidgetGroup" id="283" x="8" y="5" measuredWidth="335" measuredHeight="527">
+    <widgets xsi:type="model:Panel" id="2" y="46" width="335" height="481" measuredWidth="335" measuredHeight="481" background="#000000" foreground="#ffffff" border="none"/>
+    <widgets xsi:type="model:WidgetGroup" id="12" y="21" measuredWidth="335" measuredHeight="25">
+      <widgets xsi:type="model:Panel" id="4" width="335" height="25" measuredWidth="335" measuredHeight="25" background="#444444" foreground="#ffffff" border="none"/>
+      <widgets xsi:type="model:Label" id="5" x="294" y="2" text="00:30" measuredWidth="37" measuredHeight="21" foreground="#ffffff">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Icon" id="7" x="256" y="5" measuredWidth="16" measuredHeight="16" foreground="#ffffff" icon="signal (small)"/>
+      <widgets xsi:type="model:Icon" id="8" x="274" y="5" measuredWidth="16" measuredHeight="16" foreground="#ffffff" icon="battery (small)"/>
+      <widgets xsi:type="model:Icon" id="9" x="238" y="5" measuredWidth="16" measuredHeight="16" foreground="#ffffff" icon="wifi (small)"/>
+      <widgets xsi:type="model:Icon" id="10" x="5" y="5" measuredWidth="16" measuredHeight="16" foreground="#ffffff" icon="image (small)"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="282" text="微抓主界面：" measuredWidth="89" measuredHeight="22">
+      <font size="14" bold="true" italic="true"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="323" y="469" measuredWidth="335" measuredHeight="58">
+      <widgets xsi:type="model:Panel" id="324" width="335" height="58" measuredWidth="335" measuredHeight="58" background="#444444" foreground="#ffffff" border="none"/>
+      <widgets xsi:type="model:Label" id="325" x="62" y="10" text="微抓" measuredWidth="61" measuredHeight="37" foreground="#ffffff">
+        <font size="28"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="326" x="122" y="24" text="v0.6" measuredWidth="31" measuredHeight="23" foreground="#999999">
+        <font size="12" italic="true"/>
+      </widgets>
+      <widgets xsi:type="model:Icon" id="327" x="301" y="17" measuredWidth="24" measuredHeight="24" foreground="#999999" icon="checked (medium)"/>
+      <widgets xsi:type="model:Icon" id="328" x="270" y="17" measuredWidth="24" measuredHeight="24" foreground="#ffffff" icon="play (medium)"/>
+      <widgets xsi:type="model:Icon" id="329" x="10" y="5" measuredWidth="48" measuredHeight="48" foreground="#ffffff" icon="image (xlarge)"/>
+      <widgets xsi:type="model:Label" id="390" x="122" y="10" text="6100" measuredWidth="36" measuredHeight="23" foreground="#999999">
+        <font size="12" italic="true"/>
+      </widgets>
+      <widgets xsi:type="model:Icon" id="446" x="240" y="17" measuredWidth="24" measuredHeight="24" foreground="#ffffff" icon="volume (medium)"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="330" y="46" measuredWidth="335" measuredHeight="77">
+      <widgets xsi:type="model:Panel" id="331" width="335" height="76" measuredWidth="335" measuredHeight="76" background="#000000"/>
+      <widgets xsi:type="model:Label" id="332" x="67" y="3" text="妹子图-首页" measuredWidth="106" measuredHeight="29" foreground="#ffffff">
+        <font size="18"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="333" x="66" y="30" text="/grabber/妹子图/首页" measuredWidth="130" measuredHeight="23" foreground="#999999">
+        <font size="12"/>
+      </widgets>
+      <widgets xsi:type="model:HLine" id="334" y="71" width="335" measuredWidth="335" measuredHeight="6" foreground="#666666"/>
+      <widgets xsi:type="model:Icon" id="335" x="301" y="17" measuredWidth="24" measuredHeight="24" foreground="#ffffff" icon="checked (medium)"/>
+      <widgets xsi:type="model:Icon" id="336" x="270" y="17" measuredWidth="24" measuredHeight="24" foreground="#ffffff" icon="pause (medium)"/>
+      <widgets xsi:type="model:Icon" id="337" x="240" y="17" measuredWidth="24" measuredHeight="24" foreground="#ffffff" icon="refresh (medium)"/>
+      <widgets xsi:type="model:Icon" id="338" x="10" y="5" measuredWidth="48" measuredHeight="48" foreground="#ffffff" icon="image (xlarge)"/>
+      <widgets xsi:type="model:Label" id="339" x="10" y="52" text="2012-12-20 12:20" measuredWidth="118" measuredHeight="23" foreground="#999999">
+        <font size="12" italic="true"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="340" x="262" y="52" text="3/10 1220" measuredWidth="69" measuredHeight="23" foreground="#999999">
+        <font size="12" italic="true"/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="346" y="122" measuredWidth="335" measuredHeight="77">
+      <widgets xsi:type="model:Panel" id="347" width="335" height="76" measuredWidth="335" measuredHeight="76" background="#000000"/>
+      <widgets xsi:type="model:Label" id="348" x="67" y="3" text="妹子图-全站" measuredWidth="106" measuredHeight="29" foreground="#ffffff">
+        <font size="18"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="349" x="66" y="30" text="/grabber/妹子图" measuredWidth="100" measuredHeight="23" foreground="#999999">
+        <font size="12"/>
+      </widgets>
+      <widgets xsi:type="model:HLine" id="350" y="71" width="335" measuredWidth="335" measuredHeight="6" foreground="#666666"/>
+      <widgets xsi:type="model:Icon" id="351" x="301" y="17" measuredWidth="24" measuredHeight="24" foreground="#ffffff" icon="checked (medium)"/>
+      <widgets xsi:type="model:Icon" id="352" x="270" y="17" measuredWidth="24" measuredHeight="24" foreground="#ffffff" icon="play (medium)"/>
+      <widgets xsi:type="model:Icon" id="354" x="10" y="5" measuredWidth="48" measuredHeight="48" foreground="#ffffff" icon="image (xlarge)"/>
+      <widgets xsi:type="model:Label" id="355" x="10" y="52" text="2012-12-20 12:20" measuredWidth="118" measuredHeight="23" foreground="#999999">
+        <font size="12" italic="true"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="356" x="295" y="52" text="1220" measuredWidth="36" measuredHeight="23" foreground="#999999">
+        <font size="12" italic="true"/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="357" y="198" measuredWidth="335" measuredHeight="77">
+      <widgets xsi:type="model:Panel" id="358" width="335" height="76" measuredWidth="335" measuredHeight="76" background="#000000"/>
+      <widgets xsi:type="model:Label" id="359" x="67" y="3" text="美女门-某相册" measuredWidth="124" measuredHeight="29" foreground="#ffffff">
+        <font size="18"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="360" x="66" y="30" text="/grabber/美女门/某相册" measuredWidth="142" measuredHeight="23" foreground="#999999">
+        <font size="12"/>
+      </widgets>
+      <widgets xsi:type="model:HLine" id="361" y="71" width="335" measuredWidth="335" measuredHeight="6" foreground="#666666"/>
+      <widgets xsi:type="model:Icon" id="362" x="301" y="17" measuredWidth="24" measuredHeight="24" foreground="#ffffff" icon="unchecked (medium)"/>
+      <widgets xsi:type="model:Icon" id="363" x="270" y="17" measuredWidth="24" measuredHeight="24" foreground="#ffffff" icon="play (medium)"/>
+      <widgets xsi:type="model:Icon" id="365" x="10" y="5" measuredWidth="48" measuredHeight="48" foreground="#ffffff" icon="image (xlarge)"/>
+      <widgets xsi:type="model:Label" id="366" x="10" y="52" text="2012-12-20 12:20" measuredWidth="118" measuredHeight="23" foreground="#999999">
+        <font size="12" italic="true"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="367" x="295" y="52" text="1220" measuredWidth="36" measuredHeight="23" foreground="#999999">
+        <font size="12" italic="true"/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="368" y="274" measuredWidth="335" measuredHeight="77">
+      <widgets xsi:type="model:Panel" id="369" width="335" height="76" measuredWidth="335" measuredHeight="76" background="#000000"/>
+      <widgets xsi:type="model:Label" id="370" x="67" y="3" text="妹子图-全站" measuredWidth="106" measuredHeight="29" foreground="#ffffff">
+        <font size="18"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="371" x="66" y="30" text="/grabber/美女门" measuredWidth="100" measuredHeight="23" foreground="#999999">
+        <font size="12"/>
+      </widgets>
+      <widgets xsi:type="model:HLine" id="372" y="71" width="335" measuredWidth="335" measuredHeight="6" foreground="#666666"/>
+      <widgets xsi:type="model:Icon" id="373" x="301" y="17" measuredWidth="24" measuredHeight="24" foreground="#ffffff" icon="checked (medium)"/>
+      <widgets xsi:type="model:Icon" id="374" x="270" y="17" measuredWidth="24" measuredHeight="24" foreground="#ffffff" icon="pause (medium)"/>
+      <widgets xsi:type="model:Icon" id="375" x="240" y="17" measuredWidth="24" measuredHeight="24" foreground="#ff0000" icon="warning (medium)"/>
+      <widgets xsi:type="model:Icon" id="376" x="10" y="5" measuredWidth="48" measuredHeight="48" foreground="#ffffff" icon="image (xlarge)"/>
+      <widgets xsi:type="model:Label" id="377" x="10" y="52" text="2012-12-20 12:20" measuredWidth="118" measuredHeight="23" foreground="#999999">
+        <font size="12" italic="true"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="378" x="261" y="52" text="3/10 1220" measuredWidth="69" measuredHeight="23" foreground="#999999">
+        <font size="12" italic="true"/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="379" y="350" measuredWidth="335" measuredHeight="77">
+      <widgets xsi:type="model:Panel" id="380" width="335" height="76" measuredWidth="335" measuredHeight="76" background="#000000"/>
+      <widgets xsi:type="model:Label" id="381" x="67" y="3" text="帅哥网" measuredWidth="59" measuredHeight="27" foreground="#ffffff">
+        <font size="18"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="382" x="66" y="30" text="/grabber/帅哥网" measuredWidth="100" measuredHeight="23" foreground="#999999">
+        <font size="12"/>
+      </widgets>
+      <widgets xsi:type="model:HLine" id="383" y="71" width="335" measuredWidth="335" measuredHeight="6" foreground="#666666"/>
+      <widgets xsi:type="model:Icon" id="384" x="301" y="17" measuredWidth="24" measuredHeight="24" foreground="#ffffff" icon="checked (medium)"/>
+      <widgets xsi:type="model:Icon" id="385" x="270" y="17" measuredWidth="24" measuredHeight="24" foreground="#ffffff" icon="play (medium)"/>
+      <widgets xsi:type="model:Icon" id="387" x="10" y="5" measuredWidth="48" measuredHeight="48" foreground="#ffffff" icon="image (xlarge)"/>
+      <widgets xsi:type="model:Label" id="388" x="10" y="52" text="2012-12-20 12:20" measuredWidth="118" measuredHeight="23" foreground="#999999">
+        <font size="12" italic="true"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="389" x="295" y="52" text="1220" measuredWidth="36" measuredHeight="23" foreground="#999999">
+        <font size="12" italic="true"/>
+      </widgets>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="443" x="370" y="24" measuredWidth="396" measuredHeight="135">
+    <widgets xsi:type="model:WidgetGroup" id="402" y="29" measuredWidth="335" measuredHeight="77">
+      <widgets xsi:type="model:Panel" id="403" width="335" height="76" measuredWidth="335" measuredHeight="76" background="#000000"/>
+      <widgets xsi:type="model:Label" id="404" x="67" y="3" text="妹子图-首页" measuredWidth="106" measuredHeight="29" foreground="#ffffff">
+        <font size="18"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="405" x="66" y="30" text="/grabber/妹子图/首页" measuredWidth="130" measuredHeight="23" foreground="#999999">
+        <font size="12"/>
+      </widgets>
+      <widgets xsi:type="model:HLine" id="406" y="71" width="335" measuredWidth="335" measuredHeight="6" foreground="#666666"/>
+      <widgets xsi:type="model:Icon" id="407" x="301" y="17" measuredWidth="24" measuredHeight="24" foreground="#ffffff" icon="checked (medium)"/>
+      <widgets xsi:type="model:Icon" id="408" x="270" y="17" measuredWidth="24" measuredHeight="24" foreground="#ffffff" icon="pause (medium)"/>
+      <widgets xsi:type="model:Icon" id="409" x="240" y="17" measuredWidth="24" measuredHeight="24" foreground="#ffffff" icon="refresh (medium)"/>
+      <widgets xsi:type="model:Icon" id="410" x="10" y="5" measuredWidth="48" measuredHeight="48" foreground="#ffffff" icon="image (xlarge)"/>
+      <widgets xsi:type="model:Label" id="411" x="10" y="52" text="2012-12-20 12:20" measuredWidth="118" measuredHeight="23" foreground="#999999">
+        <font size="12" italic="true"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="412" x="262" y="52" text="3/10 1220" measuredWidth="69" measuredHeight="23" foreground="#999999">
+        <font size="12" italic="true"/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="413" x="54" y="96" text="最后抓取时间" measuredWidth="94" measuredHeight="39" background="#ffff00" position="topLeft">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="414" x="302" y="96" text="已抓总数" measuredWidth="66" measuredHeight="39" background="#ffff00" position="topLeft">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="415" x="190" y="96" text="当前抓取进度" measuredWidth="94" measuredHeight="39" background="#ffff00" position="topRight">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="416" x="14" text="网站logo" measuredWidth="68" measuredHeight="42" background="#ffff00">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="417" x="86" height="42" text="标题" measuredWidth="38" measuredHeight="42" background="#ffff00">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="418" x="134" y="70" text="保存路径" measuredWidth="66" measuredHeight="39" background="#ffff00" position="topLeft">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="419" x="310" text="选择|不选择" measuredWidth="86" measuredHeight="42" background="#ffff00">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="420" x="218" text="开抓|停抓" measuredWidth="72" measuredHeight="42" background="#ffff00" position="bottomRight">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="421" x="218" y="62" text="动画" measuredWidth="38" measuredHeight="39" background="#ffff00" position="topRight">
+      <font size="14"/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="444" x="370" y="184" measuredWidth="396" measuredHeight="114">
+    <widgets xsi:type="model:WidgetGroup" id="430" y="29" measuredWidth="335" measuredHeight="58">
+      <widgets xsi:type="model:Panel" id="431" width="335" height="58" measuredWidth="335" measuredHeight="58" background="#444444" foreground="#ffffff" border="none"/>
+      <widgets xsi:type="model:Label" id="432" x="62" y="10" text="微抓" measuredWidth="61" measuredHeight="37" foreground="#ffffff">
+        <font size="28"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="433" x="122" y="24" text="v1.0" measuredWidth="31" measuredHeight="23" foreground="#999999">
+        <font size="12" italic="true"/>
+      </widgets>
+      <widgets xsi:type="model:Icon" id="434" x="301" y="17" measuredWidth="24" measuredHeight="24" foreground="#999999" icon="checked (medium)"/>
+      <widgets xsi:type="model:Icon" id="435" x="270" y="17" measuredWidth="24" measuredHeight="24" foreground="#ffffff" icon="play (medium)"/>
+      <widgets xsi:type="model:Icon" id="436" x="10" y="5" measuredWidth="48" measuredHeight="48" foreground="#ffffff" icon="image (xlarge)"/>
+      <widgets xsi:type="model:Label" id="437" x="122" y="10" text="6100" measuredWidth="36" measuredHeight="23" foreground="#999999">
+        <font size="12" italic="true"/>
+      </widgets>
+      <widgets xsi:type="model:Icon" id="447" x="238" y="17" measuredWidth="24" measuredHeight="24" foreground="#ffffff" icon="volume (medium)"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="438" x="19" height="39" text="微抓logo" measuredWidth="68" measuredHeight="39" background="#ffff00">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="439" x="134" text="累计抓取总数" measuredWidth="94" measuredHeight="39" background="#ffff00">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="440" x="86" y="75" text="版本号" measuredWidth="52" measuredHeight="39" background="#ffff00" position="topRight">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="441" x="310" y="75" height="39" text="全选|全不选" measuredWidth="86" measuredHeight="39" background="#ffff00" position="topLeft">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="442" x="156" y="75" height="39" text="全部开抓|全部停抓" measuredWidth="128" measuredHeight="39" background="#ffff00" position="topRight">
+      <font size="14"/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="448" x="246" text="是否启用声音提示" measuredWidth="122" measuredHeight="39" background="#ffff00">
+      <font size="14"/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:Note" id="445" x="370" y="328" width="335" height="204" text="说明：&#xA;0) 此版本特色：交互简化+多线程提速+声音提示；&#xA;1) 抓取项通过文件 &quot;sd卡/grabber/config.xml&quot; 配置；&#xA;2) 抓取历史记录在文件 &quot;sd卡/grabber/record.xml&quot; 中；&#xA;3) 每个抓取项使用各自独立的线程并发抓取；&#xA;4) 抓取后保存的文件名格式为 &quot;yyyyMMddHHmmssSSSS.xxx&quot;。" measuredWidth="335" measuredHeight="204" annotation="true" textAlignment="Left">
+    <font size="14"/>
+  </widgets>
+  <widgets xsi:type="model:Arrow" id="450" x="335" y="79" width="36" height="26" measuredWidth="36" measuredHeight="26" annotation="true" foreground="#ff0000" left="false" right="true" direction="bottom"/>
+  <widgets xsi:type="model:Arrow" id="451" x="335" y="272" width="42" height="233" measuredWidth="42" measuredHeight="233" annotation="true" foreground="#ff0000" left="false" right="true" direction="bottom"/>
+  <hRuler/>
+  <vRuler/>
+  <font/>
+</model:Screen>
