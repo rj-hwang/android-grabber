@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">微抓</string>
+    <string name="app_name">微抓a</string>
     <string name="click2start">从点击 菜单/抓取 开始</string>
     <string name="main_menu_start">开抓</string>
     <string name="main_menu_stop">停抓</string>

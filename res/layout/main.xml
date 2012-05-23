@@ -4,30 +4,255 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center" >
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/main" />
-    </LinearLayout>
-
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
         android:scrollbars="vertical" >
 
-        <TextView
-            android:id="@+id/textView4GrabbingInfo"
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/click2start"
-            android:textColor="@android:color/darker_gray" />
+            android:gravity="top"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/img1"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/name1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/img1"
+                    android:layout_toRightOf="@id/img1"
+                    android:text="AAAA"
+                    android:textSize="30dp" />
+
+                <TextView
+                    android:id="@+id/path1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/img1"
+                    android:layout_marginBottom="2dp"
+                    android:layout_toRightOf="@id/img1"
+                    android:text="/path/to"
+                    android:textSize="12dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="2dp"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/optRefresh1"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="5dp"
+                        android:background="@android:drawable/ic_menu_rotate" />
+
+                    <Button
+                        android:id="@+id/optRun1"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="5dp"
+                        android:background="@android:drawable/ic_media_play" />
+
+                    <CheckBox
+                        android:id="@+id/optSelect1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="8dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/date1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/img1"
+                    android:layout_below="@id/img1"
+                    android:layout_marginLeft="5dp"
+                    android:text="2012-12-20 12:20"
+                    android:textSize="12dp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/count1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/date1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"
+                    android:text="12/20 1220"
+                    android:textSize="12dp"
+                    android:textStyle="normal" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/img2"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/name2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/img2"
+                    android:layout_toRightOf="@id/img2"
+                    android:text="AAAA"
+                    android:textSize="30dp" />
+
+                <TextView
+                    android:id="@+id/path2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/img2"
+                    android:layout_marginBottom="2dp"
+                    android:layout_toRightOf="@id/img2"
+                    android:text="/path/to"
+                    android:textSize="12dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="2dp"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/optRun2"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="5dp"
+                        android:background="@android:drawable/ic_media_play" />
+
+                    <CheckBox
+                        android:id="@+id/optSelect2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="8dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/date2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/img2"
+                    android:layout_below="@id/img2"
+                    android:layout_marginLeft="5dp"
+                    android:text="2012-12-20 12:20"
+                    android:textSize="12dp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/count2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/date2"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"
+                    android:text="12/20 1220"
+                    android:textSize="12dp"
+                    android:textStyle="normal" />
+            </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:drawable/dark_header" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="left|center_vertical"
+            android:padding="5dp" >
+
+            <ImageView
+                android:id="@+id/appLogo"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_launcher" />
+
+            <TextView
+                android:id="@+id/appName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/app_name"
+                android:textSize="30dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="2dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/appRecordCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="6100"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/appVersion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="v0.6"
+                    android:textSize="12dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="right|center_vertical"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/optRunAll"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"
+                android:background="@android:drawable/ic_media_play" />
+
+            <CheckBox
+                android:id="@+id/optSelectAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="8dp" />
+        </LinearLayout>
+    </FrameLayout>
 
 </FrameLayout>
