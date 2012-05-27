@@ -16,8 +16,8 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout.LayoutParams;
-import cn.bliss.android.grabber.R;
 import cn.bliss.grabber.Config;
+import cn.bliss.grabber.R;
 import cn.bliss.grabber.Searcher;
 
 /**

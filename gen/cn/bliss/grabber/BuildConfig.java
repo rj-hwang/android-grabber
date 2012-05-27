@@ -1,5 +1,5 @@
 /** Automatically generated file. DO NOT MODIFY */
-package cn.bliss.android.grabber;
+package cn.bliss.grabber;
 
 public final class BuildConfig {
     public final static boolean DEBUG = true;

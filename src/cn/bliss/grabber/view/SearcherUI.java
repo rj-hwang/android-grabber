@@ -11,7 +11,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import cn.bliss.android.grabber.R;
+import cn.bliss.grabber.R;
 
 /**
  * 配置项UI
