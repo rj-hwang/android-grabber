@@ -19,15 +19,15 @@ import cn.bliss.android.grabber.Item;
 import cn.bliss.android.grabber.Searcher;
 
 /**
- * 基于Http的抓取项搜索器
+ * 基于Http的搜索器
  * 
- * @author dragon|rongjihuang@gmail.com
+ * @author dragon
  * 
  */
-public class HttpSearcher implements Searcher {
+public class HttpSearcher extends AbstractSearcher implements Searcher {
 	private String url;// 地址
 	private String selector;// 抓取项的选择器
-	private String agent;// 请求的用户代理
+	private String userAgent;// 请求的用户代理
 
 	public String getUrl() {
 		return url;
@@ -41,12 +41,12 @@ public class HttpSearcher implements Searcher {
 		return selector;
 	}
 
-	public String getAgent() {
-		return agent;
+	public String getUserAgent() {
+		return userAgent;
 	}
 
-	public void setAgent(String agent) {
-		this.agent = agent;
+	public void setUserAgent(String agent) {
+		this.userAgent = agent;
 	}
 
 	public void setSelector(String selector) {
@@ -57,8 +57,8 @@ public class HttpSearcher implements Searcher {
 	public List<Item> list() throws IOException {
 		// 获取请求页面
 		Connection connection = Jsoup.connect(this.getUrl());
-		if (this.getAgent() != null)
-			connection.userAgent(this.getAgent());// 使用用户代理
+		if (this.getUserAgent() != null)
+			connection.userAgent(this.getUserAgent());// 使用用户代理
 		Document doc = connection.get();
 
 		// 获取匹配的元素

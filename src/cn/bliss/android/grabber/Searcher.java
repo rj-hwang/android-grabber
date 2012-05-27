@@ -17,4 +17,25 @@ public interface Searcher {
 	 * @throws IOException
 	 */
 	List<Item> list() throws IOException;
+
+	/**
+	 * 获取名称
+	 * 
+	 * @return
+	 */
+	String getName();
+
+	/**
+	 * 获取保存路径
+	 * 
+	 * @return
+	 */
+	String getPath();
+
+	/**
+	 * 获取配置ID
+	 * 
+	 * @return
+	 */
+	String getId();
 }

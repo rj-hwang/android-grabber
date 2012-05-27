@@ -15,42 +15,41 @@ public final class R {
         public static final int main=0x7f020001;
     }
     public static final class id {
-        public static final int appLogo=0x7f050011;
-        public static final int appName=0x7f050012;
-        public static final int appRecordCount=0x7f050013;
-        public static final int appVersion=0x7f050014;
-        public static final int count1=0x7f050009;
-        public static final int count2=0x7f050010;
-        public static final int date1=0x7f050008;
-        public static final int date2=0x7f05000f;
-        public static final int img1=0x7f050002;
-        public static final int img2=0x7f05000a;
-        public static final int mainView=0x7f050000;
-        public static final int name1=0x7f050003;
-        public static final int name2=0x7f05000b;
-        public static final int optRefresh1=0x7f050005;
-        public static final int optRun1=0x7f050006;
-        public static final int optRun2=0x7f05000d;
-        public static final int optRunAll=0x7f050015;
-        public static final int optSelect1=0x7f050007;
-        public static final int optSelect2=0x7f05000e;
-        public static final int optSelectAll=0x7f050016;
-        public static final int path1=0x7f050004;
-        public static final int path2=0x7f05000c;
-        public static final int textView1=0x7f050001;
+        public static final int app_logo=0x7f06000c;
+        public static final int app_name=0x7f06000d;
+        public static final int app_recordCount=0x7f06000e;
+        public static final int app_version=0x7f06000f;
+        public static final int item=0x7f060002;
+        public static final int item_count=0x7f060009;
+        public static final int item_date=0x7f060008;
+        public static final int item_logo=0x7f060003;
+        public static final int item_name=0x7f060004;
+        public static final int item_opt_run=0x7f060006;
+        public static final int item_opt_select=0x7f060007;
+        public static final int item_path=0x7f060005;
+        public static final int item_progress=0x7f06000a;
+        public static final int items_container=0x7f06000b;
+        public static final int mainView=0x7f060000;
+        public static final int textView1=0x7f060001;
+        public static final int totalOpt_run=0x7f060010;
+        public static final int totalOpt_select=0x7f060011;
     }
     public static final class layout {
         public static final int about=0x7f030000;
-        public static final int main=0x7f030001;
-        public static final int setting=0x7f030002;
+        public static final int item=0x7f030001;
+        public static final int main=0x7f030002;
+        public static final int setting=0x7f030003;
+    }
+    public static final class raw {
+        public static final int config=0x7f040000;
     }
     public static final class string {
-        public static final int app_name=0x7f040000;
-        public static final int click2start=0x7f040001;
-        public static final int main_menu_about=0x7f040006;
-        public static final int main_menu_clean=0x7f040004;
-        public static final int main_menu_setting=0x7f040005;
-        public static final int main_menu_start=0x7f040002;
-        public static final int main_menu_stop=0x7f040003;
+        public static final int app_name=0x7f050000;
+        public static final int click2start=0x7f050001;
+        public static final int main_menu_about=0x7f050006;
+        public static final int main_menu_clean=0x7f050004;
+        public static final int main_menu_setting=0x7f050005;
+        public static final int main_menu_start=0x7f050002;
+        public static final int main_menu_stop=0x7f050003;
     }
 }

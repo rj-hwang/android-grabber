@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 微抓配置文件 create by dragon 2012-03-28 -->
+<grabber>
+	<userAgent>Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.79 Safari/535.11</userAgent>
+	<searchers>
+		<!-- "妹子图"网的抓取配置 -->
+		<searcher id="meizitu_home" type="simple">
+			<name>妹子图-首页</name>
+			<path>/grabber/妹子图</path>
+			<url>http://jandan.net/ooxx</url>
+			<selector>ol.commentlist>li>p>img,div.acv_comment>img</selector>
+		</searcher>
+		<searcher id="meizitu_all" type="paging">
+			<name>妹子图-所有页</name>
+			<path>/grabber/妹子图</path>
+			<url>http://jandan.net/ooxx</url>
+			<selector>ol.commentlist>li>p>img</selector>
+			<pagingUrl>{url}/page-{page}</pagingUrl>
+			<pagingSelector>span.current-comment-page</pagingSelector>
+			<pagingRegx>\[{page}\]</pagingRegx>
+		</searcher>
+		<searcher id="meinvmen_home" type="simple">
+			<name>美女门-首页</name>
+			<path>/grabber/美女门</path>
+			<url>http://www.mmeinv.com</url>
+			<selector>div#SlidePlayer>ul.Slides>li>a>img,div.content>ul>li>a>img</selector>
+		</searcher>
+		
+		<!-- "美女门"网某个相册的抓取配置 -->
+		<searcher id="meinvmen_lvwanrou" type="paging">
+			<name>美女门-吕婉柔-魔鬼的身材</name>
+			<path>/grabber/美女门/吕婉柔</path>
+			<url>http://www.mmeinv.com/post/lvwanrou/3.html</url>
+			<selector>div.pic img</selector>
+			<pagingUrl>{urlName}_{page}.html</pagingUrl>
+			<pagingSelector>ul.pagelist>li>a</pagingSelector>
+			<pagingRegx>共{page}页</pagingRegx>
+		</searcher>
+	</searchers>
+</grabber>
