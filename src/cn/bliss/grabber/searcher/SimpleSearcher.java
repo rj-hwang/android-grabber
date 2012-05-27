@@ -1,4 +1,4 @@
-package cn.bliss.android.grabber.searcher;
+package cn.bliss.grabber.searcher;
 
 public class SimpleSearcher extends HttpSearcher{
 

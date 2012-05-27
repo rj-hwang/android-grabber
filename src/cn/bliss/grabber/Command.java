@@ -1,4 +1,4 @@
-package cn.bliss.android.grabber;
+package cn.bliss.grabber;
 
 import java.io.IOException;
 

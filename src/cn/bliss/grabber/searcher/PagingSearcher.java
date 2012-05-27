@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cn.bliss.android.grabber.searcher;
+package cn.bliss.grabber.searcher;
 
 /**
  * 分页搜索器

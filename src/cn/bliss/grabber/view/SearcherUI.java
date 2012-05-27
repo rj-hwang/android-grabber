@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cn.bliss.android.grabber.view;
+package cn.bliss.grabber.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,9 +1,9 @@
 /**
  * 
  */
-package cn.bliss.android.grabber.searcher;
+package cn.bliss.grabber.searcher;
 
-import cn.bliss.android.grabber.Searcher;
+import cn.bliss.grabber.Searcher;
 
 /**
  * 抽象搜索器

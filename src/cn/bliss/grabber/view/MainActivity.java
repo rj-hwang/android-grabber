@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cn.bliss.android.grabber.view;
+package cn.bliss.grabber.view;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,9 +16,9 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout.LayoutParams;
-import cn.bliss.android.grabber.Config;
 import cn.bliss.android.grabber.R;
-import cn.bliss.android.grabber.Searcher;
+import cn.bliss.grabber.Config;
+import cn.bliss.grabber.Searcher;
 
 /**
  * @author dragon

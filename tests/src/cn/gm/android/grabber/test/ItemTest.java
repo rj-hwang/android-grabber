@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import junit.framework.TestCase;
 import android.os.Environment;
-import cn.bliss.android.grabber.Item;
+import cn.bliss.grabber.Item;
 
 public class ItemTest extends TestCase {
 	public void testExcute() throws IOException {

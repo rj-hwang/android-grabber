@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cn.bliss.android.grabber.searcher;
+package cn.bliss.grabber.searcher;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,8 +15,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import cn.bliss.android.grabber.Item;
-import cn.bliss.android.grabber.Searcher;
+import cn.bliss.grabber.Item;
+import cn.bliss.grabber.Searcher;
 
 /**
  * 基于Http的搜索器

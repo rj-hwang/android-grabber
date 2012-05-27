@@ -1,4 +1,4 @@
-package cn.bliss.android.grabber;
+package cn.bliss.grabber;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -8,10 +8,10 @@ import org.xmlpull.v1.XmlPullParser;
 
 import android.content.Context;
 import android.util.Xml;
-import cn.bliss.android.grabber.searcher.AbstractSearcher;
-import cn.bliss.android.grabber.searcher.HttpSearcher;
-import cn.bliss.android.grabber.searcher.PagingSearcher;
-import cn.bliss.android.grabber.searcher.SimpleSearcher;
+import cn.bliss.grabber.searcher.AbstractSearcher;
+import cn.bliss.grabber.searcher.HttpSearcher;
+import cn.bliss.grabber.searcher.PagingSearcher;
+import cn.bliss.grabber.searcher.SimpleSearcher;
 
 /**
  * 抓取配置
