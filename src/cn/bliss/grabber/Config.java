@@ -32,6 +32,7 @@ public class Config {
 	public Config(Context context, int cfgResId) {
 		this.context = context;
 		this.cfgResId = cfgResId;
+		this.list();
 	}
 
 	public String getUserAgent() {
@@ -72,8 +73,8 @@ public class Config {
 					} else if ("searcher".equals(name)) {
 						id = parser.getAttributeValue(0);
 						type = parser.getAttributeValue(1);
-						//System.out.println("id=" + id);
-						//System.out.println("type=" + type);
+						// System.out.println("id=" + id);
+						// System.out.println("type=" + type);
 						if ("simple".equals(type)) {
 							searcher = new SimpleSearcher();
 						} else if ("paging".equals(type)) {
@@ -98,8 +99,12 @@ public class Config {
 					break;
 				case XmlPullParser.END_TAG:
 					if ("searcher".equals(name)) {
-						if (searcher != null)
+						if (searcher != null) {
+							if (searcher instanceof HttpSearcher)
+								((HttpSearcher) searcher)
+										.setUserAgent(this.userAgent);
 							this.list.add(searcher);
+						}
 					}
 					break;
 				default:

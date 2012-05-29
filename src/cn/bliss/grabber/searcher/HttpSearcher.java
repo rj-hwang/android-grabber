@@ -55,14 +55,20 @@ public class HttpSearcher extends AbstractSearcher implements Searcher {
 
 	@Override
 	public List<Item> list() throws IOException {
+		System.out.println("----url=" + url);
+		System.out.println("----userAgent=" + userAgent);
+		System.out.println("----selector=" + selector);
 		// 获取请求页面
 		Connection connection = Jsoup.connect(this.getUrl());
 		if (this.getUserAgent() != null)
 			connection.userAgent(this.getUserAgent());// 使用用户代理
+		connection.timeout(1000);
 		Document doc = connection.get();
 
 		// 获取匹配的元素
 		Elements els = doc.select(this.getSelector());
+
+		System.out.println("----els=" + els.size());
 
 		// 生成抓取项列表
 		List<Item> list = new ArrayList<Item>();

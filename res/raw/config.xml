@@ -3,6 +3,13 @@
 <grabber>
 	<userAgent>Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.79 Safari/535.11</userAgent>
 	<searchers>
+		<!-- 网易摄影 -->
+		<searcher id="pp163_square" type="simple">
+			<name>网易摄影</name>
+			<path>/grabber/网易摄影</path>
+			<url>http://pp.163.com/square</url>
+			<selector>ul.pics img</selector>
+		</searcher>
 		<!-- "妹子图"网的抓取配置 -->
 		<searcher id="meizitu_home" type="simple">
 			<name>妹子图-首页</name>
@@ -10,7 +17,7 @@
 			<url>http://jandan.net/ooxx</url>
 			<selector>ol.commentlist>li>p>img,div.acv_comment>img</selector>
 		</searcher>
-		<searcher id="meizitu_all" type="paging">
+				<searcher id="meizitu_all" type="paging">
 			<name>妹子图-所有页</name>
 			<path>/grabber/妹子图</path>
 			<url>http://jandan.net/ooxx</url>

@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="4dp"
-            android:background="@android:drawable/ic_media_pause" />
+            android:background="@android:drawable/ic_media_play" />
 
         <CheckBox
             android:id="@+id/item_opt_select"
@@ -86,7 +86,7 @@
         android:layout_alignBottom="@id/item_date"
         android:layout_alignParentRight="true"
         android:layout_marginRight="4dp"
-        android:text="1220"
+        android:text="0"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="?android:attr/textColorSecondary" />
 
@@ -97,7 +97,7 @@
         android:layout_alignBottom="@id/item_date"
         android:layout_marginRight="4dp"
         android:layout_toLeftOf="@id/item_count"
-        android:text="12/20"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="?android:attr/textColorSecondary" />
 

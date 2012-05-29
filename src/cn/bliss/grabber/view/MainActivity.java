@@ -19,6 +19,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import cn.bliss.grabber.Config;
 import cn.bliss.grabber.R;
 import cn.bliss.grabber.Searcher;
+import cn.bliss.grabber.view.SearcherUI.OnStartListener;
 
 /**
  * @author dragon
@@ -46,20 +47,31 @@ public class MainActivity extends Activity {
 		totalOptlSelect = (CheckBox) this.findViewById(R.id.totalOpt_select);
 
 		// 加载配置列表
-		List<Searcher> searchers = new Config(this.getApplicationContext(),R.raw.config).list();
-		SearcherUI item;
+		List<Searcher> searchers = new Config(this.getApplicationContext(),
+				R.raw.config).list();
+		SearcherUI searcherUI;
 		Integer resid;
 		for (Searcher searcher : searchers) {
-			item = new SearcherUI(this);
-			item.setName(searcher.getName());
-			item.setPath(searcher.getPath());
+			searcherUI = new SearcherUI(this);
+			searcherUI.setTag(searcher);
+			searcherUI.setName(searcher.getName());
+			searcherUI.setPath(searcher.getPath());
 			resid = getLogoResid(searcher.getId());
-			item.setLogoResource(resid != null ? resid : R.drawable.ic_launcher);
-			item.setCount(0);// TODO 从抓取历史中获取
-			
+			searcherUI.setLogoResource(resid != null ? resid
+					: R.drawable.ic_launcher);
+			searcherUI.setCount(0);// TODO 从抓取历史中获取
+
 			// 添加到界面
-			items.addView(item, new LayoutParams(LayoutParams.FILL_PARENT,
-					LayoutParams.WRAP_CONTENT));
+			items.addView(searcherUI, new LayoutParams(
+					LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+
+			searcherUI.setOnStartListener(new OnStartListener() {
+				@Override
+				public void onStart(final View view) {
+					// 开启一个线程执行抓取
+					System.out.println("onStart-------");
+				}
+			});
 		}
 
 		// ==总操作处理==
