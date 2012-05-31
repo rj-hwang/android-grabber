@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,8 @@ import android.widget.Toast;
 import cn.bliss.grabber.Item;
 import cn.bliss.grabber.R;
 import cn.bliss.grabber.Searcher;
+import cn.bliss.grabber.cfg.History;
+import cn.bliss.grabber.cfg.Record;
 import cn.bliss.grabber.util.GrabberUtils;
 
 /**
@@ -35,6 +38,7 @@ import cn.bliss.grabber.util.GrabberUtils;
  * 
  */
 public class SearcherUI extends RelativeLayout {
+	private static final String tag = SearcherUI.class.getName();
 	private ImageView logo;
 	private TextView name;
 	private TextView path;
@@ -47,12 +51,16 @@ public class SearcherUI extends RelativeLayout {
 
 	private Handler handler;
 	private Thread thread;
+	private Record record;
+	private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	// sd卡的目录路径
 	private File sdCardDir = Environment.getExternalStorageDirectory();
 
-	private static DateFormat df4date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	private static DateFormat df4fileName = new SimpleDateFormat("yyyyMMddHHmmssSSSS");
+	private static DateFormat df4date = new SimpleDateFormat(
+			"yyyy-MM-dd HH:mm:ss");
+	private static DateFormat df4fileName = new SimpleDateFormat(
+			"yyyyMMddHHmmssSSSS");
 
 	public SearcherUI(Context context) {
 		super(context);
@@ -86,12 +94,14 @@ public class SearcherUI extends RelativeLayout {
 	public static final int MT_FINDED = 2;// 查找完毕
 	public static final int MT_GRAB_ONE = 3;// 已抓取完一项
 	public static final int MT_FINISHED = 4;// 全部抓取完毕
+	public static final int MT_SKIP = 5;// 已抓取过忽略
 	public static final int MT_STOP = 8;// 中途停止
 	public static final int MT_ERROR = 9;// 异常
 
 	private void initHandler() {
 		this.handler = new Handler() {
 			private Date startDate;
+
 			@Override
 			public void handleMessage(Message m) {
 				System.out.println("what=" + m.what);
@@ -113,6 +123,17 @@ public class SearcherUI extends RelativeLayout {
 				case MT_GRAB_ONE:
 					progress.setText("..." + m.getData().getInt("index") + "/"
 							+ m.getData().getInt("count"));
+
+					// 发布事件
+					for (OnProcessListener p : processEventListeners) {
+						p.onProcess(SearcherUI.this, MT_GRAB_ONE);
+					}
+					break;
+				case MT_SKIP:
+					// 发布事件
+					for (OnProcessListener p : processEventListeners) {
+						p.onProcess(SearcherUI.this, MT_SKIP);
+					}
 					break;
 				case MT_FINISHED:
 					optRun.setBackgroundResource(android.R.drawable.ic_media_play);
@@ -121,7 +142,8 @@ public class SearcherUI extends RelativeLayout {
 					// name.getText(),
 					// Toast.LENGTH_LONG).show();
 					Date endDate = new Date();
-					date.setText(df4date.format(endDate) + " " + GrabberUtils.getWasteTime(startDate, endDate));
+					date.setText(df4date.format(endDate) + " "
+							+ GrabberUtils.getWasteTime(startDate, endDate));
 					progress.setText("ok-" + m.getData().getInt("count"));
 					count.setText((Integer.parseInt(count.getText().toString()) + m
 							.getData().getInt("count")) + "");
@@ -143,6 +165,7 @@ public class SearcherUI extends RelativeLayout {
 							"抓取" + name.getText() + "异常："
 									+ m.getData().getString("msg"),
 							Toast.LENGTH_LONG).show();
+					System.out.println("error:" + m.getData().getString("msg"));
 					progress.setText("error");
 					break;
 				default:
@@ -266,18 +289,31 @@ public class SearcherUI extends RelativeLayout {
 						data.putInt("count", items.size());
 						data.putInt("index", index);
 						if (running) {
+							Log.i(tag, "from=" + item.getFrom());
+							if (SearcherUI.this.record.has(item.getFrom())) {
+								message.what = MT_SKIP;
+								handler.sendMessage(message);
+								continue;
+							}
+
 							// 保存的文件路径名
-							item.setTo(new File(sdCardDir, searcher.getPath()
-									+ "/" + getToFilename(item.getFrom()))
-									.getAbsolutePath());
+							String path = searcher.getPath() + "/"
+									+ getToFilename(item.getFrom());
+							item.setTo(new File(sdCardDir, path));
 
 							// 执行抓取并保存
 							item.excute();
 
+							// 添加抓取记录
+							History history = new History();
+							history.setDate(df.format(new Date()));
+							history.setFrom(item.getFrom());
+							history.setTo(path);
+							record.add(history, true);
+
 							// 发送信息
 							message.what = MT_GRAB_ONE;
 							handler.sendMessage(message);
-
 						} else {
 							message.what = MT_STOP;
 							handler.sendMessage(message);
@@ -334,6 +370,7 @@ public class SearcherUI extends RelativeLayout {
 	// == 事件相关
 	private List<OnStartListener> startEventListeners = new ArrayList<OnStartListener>();
 	private List<OnPauseListener> pauseEventListeners = new ArrayList<OnPauseListener>();
+	private List<OnProcessListener> processEventListeners = new ArrayList<OnProcessListener>();
 
 	public void setOnStartListener(OnStartListener event) {
 		startEventListeners.add(event);
@@ -341,6 +378,10 @@ public class SearcherUI extends RelativeLayout {
 
 	public void setOnPauseListener(OnPauseListener event) {
 		pauseEventListeners.add(event);
+	}
+
+	public void setOnProcessListener(OnProcessListener event) {
+		processEventListeners.add(event);
 	}
 
 	/**
@@ -361,5 +402,19 @@ public class SearcherUI extends RelativeLayout {
 	 */
 	public interface OnPauseListener {
 		void onPause(View view);
+	}
+
+	/**
+	 * 抓取过程事
+	 * 
+	 * @author dragon
+	 * 
+	 */
+	public interface OnProcessListener {
+		void onProcess(View view, int what);
+	}
+
+	public void setRecord(Record record) {
+		this.record = record;
 	}
 }

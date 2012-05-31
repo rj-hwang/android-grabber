@@ -17,7 +17,7 @@
 			<url>http://jandan.net/ooxx</url>
 			<selector>ol.commentlist>li>p>img,div.acv_comment>img</selector>
 		</searcher>
-				<searcher id="meizitu_all" type="paging">
+		<searcher id="meizitu_all" type="paging">
 			<name>妹子图-所有页</name>
 			<path>/grabber/妹子图</path>
 			<url>http://jandan.net/ooxx</url>

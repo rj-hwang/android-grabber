@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">grabber</string>
+    <string name="app_name">grabbera</string>
     <string name="click2start">Click Menu/Start to grab</string>
     <string name="main_menu_start">Start</string>
     <string name="main_menu_stop">Stop</string>

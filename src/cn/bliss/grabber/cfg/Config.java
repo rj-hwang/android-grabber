@@ -1,4 +1,4 @@
-package cn.bliss.grabber;
+package cn.bliss.grabber.cfg;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.xmlpull.v1.XmlPullParser;
 
-import android.content.Context;
 import android.util.Xml;
+import cn.bliss.grabber.Searcher;
 import cn.bliss.grabber.searcher.AbstractSearcher;
 import cn.bliss.grabber.searcher.HttpSearcher;
 import cn.bliss.grabber.searcher.PagingSearcher;
@@ -20,23 +20,24 @@ import cn.bliss.grabber.searcher.SimpleSearcher;
  * 
  */
 public class Config {
-	private int cfgResId;
-	private Context context;
+	private InputStream from;
 	private String userAgent;
 	private List<Searcher> list;
 
-	/**
-	 * @param cfgResId
-	 *            配置文件的资源id
+	/**获取用户代理
+	 * @return
 	 */
-	public Config(Context context, int cfgResId) {
-		this.context = context;
-		this.cfgResId = cfgResId;
-		this.list();
-	}
-
 	public String getUserAgent() {
 		return userAgent;
+	}
+	
+	/**设置配置文件
+	 * @param from
+	 * @return
+	 */
+	public Config setFrom(InputStream from) {
+		this.from = from;
+		return this;
 	}
 
 	/**
@@ -49,12 +50,8 @@ public class Config {
 			return list;
 
 		list = new ArrayList<Searcher>();
-		this.loadXml(context.getResources().openRawResource(cfgResId));
+		this.loadXml(from);
 		return list;
-	}
-
-	public void setCfgResId(int cfgResId) {
-		this.cfgResId = cfgResId;
 	}
 
 	private void loadXml(InputStream in) {

@@ -17,7 +17,6 @@ public final class R {
     public static final class id {
         public static final int app_logo=0x7f06000c;
         public static final int app_name=0x7f06000d;
-        public static final int app_recordCount=0x7f06000e;
         public static final int app_version=0x7f06000f;
         public static final int item=0x7f060002;
         public static final int item_count=0x7f060009;
@@ -33,6 +32,7 @@ public final class R {
         public static final int textView1=0x7f060001;
         public static final int totalOpt_run=0x7f060010;
         public static final int totalOpt_select=0x7f060011;
+        public static final int total_count=0x7f06000e;
     }
     public static final class layout {
         public static final int about=0x7f030000;
