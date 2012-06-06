@@ -3,6 +3,7 @@
  */
 package cn.bliss.grabber.searcher;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import android.util.Log;
 import cn.bliss.grabber.Item;
 import cn.bliss.grabber.Searcher;
 
@@ -25,6 +27,7 @@ import cn.bliss.grabber.Searcher;
  * 
  */
 public class HttpSearcher extends AbstractSearcher implements Searcher {
+	private static final String tag = HttpSearcher.class.getName();
 	private String url;// 地址
 	private String selector;// 抓取项的选择器
 	private String userAgent;// 请求的用户代理
@@ -55,34 +58,45 @@ public class HttpSearcher extends AbstractSearcher implements Searcher {
 
 	@Override
 	public List<Item> list() throws IOException {
-		System.out.println("----url=" + url);
-		System.out.println("----userAgent=" + userAgent);
-		System.out.println("----selector=" + selector);
+		List<Item> container = new ArrayList<Item>();
+		find(container,getUrl(),getSelector());
+		return container;
+	}
+
+	protected Document find(List<Item> container,String from,String selector) throws IOException {
+		Log.d(tag, "----url=" + url);
+		Log.d(tag, "----userAgent=" + userAgent);
+		Log.d(tag, "----selector=" + selector);
 		// 获取请求页面
-		Connection connection = Jsoup.connect(this.getUrl());
+		Connection connection = Jsoup.connect(from);
 		if (this.getUserAgent() != null)
 			connection.userAgent(this.getUserAgent());// 使用用户代理
 		connection.timeout(1000);
 		Document doc = connection.get();
 
 		// 获取匹配的元素
-		Elements els = doc.select(this.getSelector());
-
-		System.out.println("----els=" + els.size());
+		Elements els = doc.select(selector);
+		Log.d(tag, "----size=" + els.size());
 
 		// 生成抓取项列表
-		List<Item> list = new ArrayList<Item>();
 		Item item;
+		int index = 0;
+		File to = new File(sdCardDir, this.getPath());
 		for (Element el : els) {
 			item = new Item();
+			item.setIndex(index);
+			item.setPid(getUid());
 			item.setFrom(this.getItemFrom(el));
-			list.add(item);
+			item.setTo(to);
+			container.add(item);
+			
+			index++;
 		}
 
-		return list;
+		return doc;
 	}
 
-	private String getItemFrom(Element el) {
+	protected String getItemFrom(Element el) {
 		String src = el.attr("src");
 		if (!src.startsWith("http")) {
 			src = getDomain(this.getUrl()) + src;

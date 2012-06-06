@@ -4,42 +4,48 @@
 package cn.bliss.grabber.view;
 
 import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
+import cn.bliss.grabber.Grabber;
 import cn.bliss.grabber.R;
 import cn.bliss.grabber.Searcher;
 import cn.bliss.grabber.cfg.Config;
 import cn.bliss.grabber.cfg.Record;
 import cn.bliss.grabber.cfg.Records;
-import cn.bliss.grabber.view.SearcherUI.OnProcessListener;
-import cn.bliss.grabber.view.SearcherUI.OnStartListener;
 
 /**
  * @author dragon
  * 
  */
 public class MainActivity extends Activity {
+	private static final String tag = MainActivity.class.getName();
 	private LinearLayout items;
-	private Button totalOptlRun;
+	private Button totalOptRun;
 	private CheckBox totalOptlSelect;
 	private TextView totalCount;
 	private boolean running;
 	private Map<String, Integer> logos;
+	private Map<String, SearcherView> searcherViews = new HashMap<String, SearcherView>();
+	private List<Grabber> grabbers = new ArrayList<Grabber>();
 
 	// sd卡的目录路径
 	private File sdCardDir = Environment.getExternalStorageDirectory();
@@ -47,7 +53,7 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		System.out.println("onDestroy");
+		Log.d(tag, "onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
@@ -57,96 +63,86 @@ public class MainActivity extends Activity {
 
 		// 界面元素
 		items = (LinearLayout) this.findViewById(R.id.items_container);
-		totalOptlRun = (Button) this.findViewById(R.id.totalOpt_run);
+		totalOptRun = (Button) this.findViewById(R.id.totalOpt_run);
 		totalOptlSelect = (CheckBox) this.findViewById(R.id.totalOpt_select);
 		totalCount = (TextView) this.findViewById(R.id.total_count);
+		((ImageView) this.findViewById(R.id.app_logo))
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						// 转到关于界面
+						startActivity(new Intent(MainActivity.this,
+								AboutActivity.class));
+					}
+				});
 
 		// 加载配置列表
 		Config config = new Config().setFrom(this.getResources()
 				.openRawResource(R.raw.config));
-		List<Searcher> searchers = config.list();
+		final List<Searcher> searchers = config.list();
 
-		// 加载抓取记录
-		records = new Records();
-		records.setHistoryFile(new File(sdCardDir, "grabber/history.log"));
+		// 初始化抓取记录
+		records = Records.getInstance();
+		File historyFile = new File(sdCardDir, "grabber/history.log");
+		records.setHistoryFile(historyFile);
 		records.setRecordFile(new File(sdCardDir, "grabber/record.log"));
-		records.addSearcher(searchers);
+		Record r;
+		for (Searcher s : searchers) {
+			r = new Record();
+			r.setUid(s.getUid());
+			r.setPath(s.getPath());
+			records.add(r);
+		}
 		records.load();
 
+		// 显示已抓取的总数量
+		totalCount.setText(String.valueOf(records.getCount()));
+
 		// 将配置添加到界面
-		SearcherUI searcherUI;
-		Integer resid;
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		for (Searcher searcher : searchers) {
-			searcherUI = new SearcherUI(this);
-			searcherUI.setTag(searcher);
-			searcherUI.setName(searcher.getName());
-			searcherUI.setPath(searcher.getPath());
-			resid = getLogoResid(searcher.getId());
-			searcherUI.setLogoResource(resid != null ? resid
-					: R.drawable.ic_launcher);
+		SearcherView searcherView;
+		Drawable drawable;
+		Grabber grabber;
+		for (final Searcher searcher : searchers) {
+			searcherView = new SearcherView(this);
+			searcherView.setUid(searcher.getUid());
+			searcherView.setName(searcher.getName());
+			searcherView.setPath(searcher.getPath());
+			drawable = getLogo(searcher.getUid());
+			searcherView.setLogo(drawable);
 
 			// 设置历史抓取记录信息
-			final Record record = records.get(searcher.getId());
-			searcherUI.setRecord(record);
-			searcherUI.setCount(record != null ? record.getCount() : 0);// 合计
-			searcherUI.setDate(record != null ? record.getDate() : "");// 日期
+			final Record record = records.get(searcher.getUid());
+			searcherView.setCount(record != null ? record.getCount() : 0);// 合计
+			searcherView.setDate(record != null ? record.getDate() : "");// 最后抓取日期
 
 			// 添加到界面
-			items.addView(searcherUI, new LayoutParams(
+			items.addView(searcherView, new LayoutParams(
 					LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-
-			searcherUI.setOnStartListener(new OnStartListener() {
-				@Override
-				public void onStart(final View view) {
-					// 开启一个线程执行抓取
-					System.out.println("onStart-------");
-				}
-			});
-
-			searcherUI.setOnProcessListener(new OnProcessListener() {
-				@Override
-				public void onProcess(View view, int what) {
-					switch (what) {
-					case SearcherUI.MT_GRAB_ONE:
-						// 总数加1
-						totalCount.setText((Integer.parseInt(totalCount
-								.getText().toString()) + 1) + "");
-
-						break;
-					case SearcherUI.MT_SKIP:
-						break;
-					default:
-					}
-				}
-			});
+			grabbers.add(grabber = new Grabber(searcher, searcherView));
 		}
 
 		// ==总操作处理==
 		// 执行/停止按钮
-		totalOptlRun.setOnClickListener(new View.OnClickListener() {
+		totalOptRun.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				SearcherUI c;
 				if (running) {
-					totalOptlRun
+					totalOptRun
 							.setBackgroundResource(android.R.drawable.ic_media_play);
 					running = false;
 
-					for (int i = 0; i < items.getChildCount(); i++) {
-						c = (SearcherUI) items.getChildAt(i);
-						if (c.isChecked() && c.isRunning())
-							c.stop();
+					for (Grabber grabber : grabbers) {
+						if (grabber.isChecked() && grabber.isRunning())
+							grabber.stop();
 					}
 				} else {
-					totalOptlRun
+					totalOptRun
 							.setBackgroundResource(android.R.drawable.ic_media_pause);
 					running = true;
 
-					for (int i = 0; i < items.getChildCount(); i++) {
-						c = (SearcherUI) items.getChildAt(i);
-						if (c.isChecked() && !c.isRunning())
-							c.start();
+					for (Grabber grabber : grabbers) {
+						if (grabber.isChecked() && !grabber.isRunning())
+							grabber.start();
 					}
 				}
 			}
@@ -158,43 +154,17 @@ public class MainActivity extends Activity {
 					@Override
 					public void onCheckedChanged(CompoundButton btn,
 							boolean checked) {
-						SearcherUI c;
-						for (int i = 0; i < items.getChildCount(); i++) {
-							c = (SearcherUI) items.getChildAt(i);
-							if (c.isChecked() != checked)
-								c.setChecked(checked);
+						for (Grabber grabber : grabbers) {
+							if (grabber.isChecked() != checked)
+								grabber.setChecked(checked);
 						}
 					}
 				});
 	}
 
 	@Override
-	protected void onPause() {
-		System.out.println("onPause");
-		super.onPause();
-	}
-
-	@Override
-	protected void onRestart() {
-		System.out.println("onRestart");
-		super.onRestart();
-	}
-
-	@Override
-	protected void onResume() {
-		System.out.println("onResume");
-		super.onResume();
-	}
-
-	@Override
-	protected void onStart() {
-		System.out.println("onStart");
-		super.onStart();
-	}
-
-	@Override
 	protected void onDestroy() {
-		System.out.println("onDestroy");
+		Log.d(tag, "onDestroy");
 
 		// 保存抓取记录
 		records.save();
@@ -202,13 +172,9 @@ public class MainActivity extends Activity {
 		super.onDestroy();
 	}
 
-	@Override
-	protected void onStop() {
-		System.out.println("onStop");
-		super.onStop();
-	}
-
-	private Integer getLogoResid(String id) {
-		return logos.get(id);
+	private Drawable getLogo(String id) {
+		Integer resId = logos.get(id);
+		return resId != null ? this.getResources().getDrawable(resId)
+				: getResources().getDrawable(R.drawable.ic_launcher);
 	}
 }

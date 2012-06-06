@@ -18,7 +18,7 @@ import android.util.Log;
  */
 public class Record {
 	private static final String tag = Record.class.getName();
-	private String id;
+	private String uid;
 	private String date;// 最后抓取时间:yyyy-MM-dd HH:mm:ss
 	private int count;// 已抓取的数量
 	private String path;// 抓取保存到的路径
@@ -48,14 +48,14 @@ public class Record {
 		if (isNew) {
 			try {
 				// 打开一个写文件器，构造函数中的第二个参数true表示以追加形式写文件
-				// --id,抓取时间,源url,保存为的文件
+				// --uid,抓取时间,源url,保存为的文件
 				Log.i(tag, "写入新的抓取项");
 				FileWriter writer = new FileWriter(historyFile, true);
 				if(!historyFile.exists()){
 					writer.write("# " + df.format(new Date()) + " by dragon");
-					writer.write("\n# id,抓取时间,源url,保存为的文件");
+					writer.write("\n# uid,抓取时间,源url,保存为的文件");
 				}
-				writer.write("\n" + this.getId() + "," + history.getDate()
+				writer.write("\n" + this.getUid() + "," + history.getDate()
 						+ "," + history.getFrom() + "," + history.getTo());
 				writer.close();
 			} catch (IOException e) {
@@ -64,12 +64,12 @@ public class Record {
 		}
 	}
 
-	public String getId() {
-		return id;
+	public String getUid() {
+		return uid;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
 	public String getDate() {

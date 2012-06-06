@@ -3,13 +3,41 @@
     android:id="@+id/mainView"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:gravity="center" >
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/about_logo"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitCenter"
+        android:src="@drawable/about" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/about_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="微抓"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/app_name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <TextView
+        android:id="@+id/about_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/app_ver"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/about_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="@string/app_desc"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
 </LinearLayout>

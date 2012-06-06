@@ -34,6 +34,7 @@
             android:padding="5dp" >
 
             <ImageView
+                android:contentDescription="@string/app_name"
                 android:id="@+id/app_logo"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
@@ -52,21 +53,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="4dp"
                 android:orientation="vertical" >
 
                 <TextView
                     android:id="@+id/total_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
                     android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/app_version"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="v0.6"
+                    android:text="@string/app_ver"
                     android:textSize="12dp" />
             </LinearLayout>
         </LinearLayout>
@@ -94,5 +94,4 @@
                 android:layout_marginRight="8dp" />
         </LinearLayout>
     </FrameLayout>
-
 </FrameLayout>

@@ -33,9 +33,9 @@ public interface Searcher {
 	String getPath();
 
 	/**
-	 * 获取配置ID
+	 * 获取标识符
 	 * 
 	 * @return
 	 */
-	String getId();
+	String getUid();
 }

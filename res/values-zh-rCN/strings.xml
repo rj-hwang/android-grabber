@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">微抓a</string>
-    <string name="click2start">从点击 菜单/抓取 开始</string>
-    <string name="main_menu_start">开抓</string>
-    <string name="main_menu_stop">停抓</string>
-    <string name="main_menu_clean">清屏</string>
-    <string name="main_menu_setting">设置</string>
-    <string name="main_menu_about">关于</string>
+    <string name="app_name">微抓</string>
+    <string name="app_ver">v0.6 alpha7</string>
+    <string name="app_desc">你投入越多\n就收获越多</string>
+    <string name="about">关于</string>
+    <string name="info_grabbed">已抓完</string>
+    <string name="info_grab">抓取</string>
+    <string name="info_error">异常</string>
+    <string name="info_fireEeror">爆异常了</string>
+    <string name="info_stoped">已停抓</string>
 </resources>

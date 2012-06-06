@@ -11,10 +11,8 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-
-import cn.bliss.grabber.Searcher;
+import java.util.Map.Entry;
 
 import android.util.Log;
 
@@ -26,9 +24,19 @@ import android.util.Log;
  */
 public class Records {
 	private static final String tag = Records.class.getName();
+	private static Records instance;
 	private File historyFile;// 历史记录文件
 	private File recordFile;// 主记录文件
 	private Map<String, Record> rs = new LinkedHashMap<String, Record>();
+
+	private Records() {
+	}
+
+	public static Records getInstance() {
+		if (instance == null)
+			instance = new Records();
+		return instance;
+	}
 
 	public void load() {
 		// 加载主记录
@@ -45,18 +53,20 @@ public class Records {
 					if (line == null || line.length() == 0
 							|| line.startsWith("#"))
 						continue;
-					data = line.split(","); // --id,最后抓取时间,已抓总数,保存路径
+					// Log.d(tag,"line="+line);
+					data = line.split(","); // --uid,最后抓取时间,已抓总数,保存路径
 					r = rs.get(data[0]);
 					if (r == null) {
-						Log.e(tag, "配置项已被移除：id=" + data[0]);
+						Log.w(tag, "配置项已被移除：id=" + data[0]);
 						r = new Record();
 						r.setHistoryFile(historyFile);
-						r.setId(data[0]);
+						r.setUid(data[0]);
 						r.setPath(data[3]);
 					}
 					r.setDate(data[1]);
+					// Log.d(tag,"length="+data.length);
 					r.setCount(Integer.parseInt(data[2]));
-					rs.put(r.getId(), r);
+					rs.put(r.getUid(), r);
 				}
 				in.close();
 			}
@@ -120,8 +130,8 @@ public class Records {
 			Record r;
 			for (String k : rs.keySet()) {
 				r = rs.get(k);
-				writer.write("\n" + r.getId() + ","
-						+ (r.getDate() == null ? " " : r.getDate()) + ","
+				writer.write("\n" + r.getUid() + ","
+						+ (r.getDate() == null ? "" : r.getDate()) + ","
 						+ r.getCount() + "," + r.getPath());
 			}
 			writer.close();
@@ -130,8 +140,32 @@ public class Records {
 		}
 	}
 
+	/**
+	 * 判断指定的源是否已经抓取过
+	 * 
+	 * @param from
+	 *            抓取项的涞源地址
+	 * @return
+	 */
+	public boolean has(String from) {
+		for (Entry<String, Record> e : rs.entrySet()) {
+			if (e.getValue().has(from)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public File getRecordFile() {
 		return recordFile;
+	}
+
+	public int getCount() {
+		int c = 0;
+		for (String k : rs.keySet()) {
+			c += rs.get(k).getCount();
+		}
+		return c;
 	}
 
 	public void setRecordFile(File recordFile) {
@@ -146,14 +180,19 @@ public class Records {
 		this.historyFile = historyFile;
 	}
 
-	public void addSearcher(List<Searcher> searchers) {
-		Record r;
-		for (Searcher s : searchers) {
-			r = new Record();
-			r.setId(s.getId());
-			r.setPath(s.getPath());
-			r.setHistoryFile(historyFile);
-			rs.put(r.getId(), r);
+	public void add(Record r) {
+		r.setHistoryFile(historyFile);
+		rs.put(r.getUid(), r);
+	}
+
+	public void addHistory(String recordId, History history, boolean isNew) {
+		Record r = rs.get(recordId);
+		if (r != null) {
+			r.add(history, isNew);
+			r.setCount(r.getCount() + 1);
+			System.out.println("rc=" + r.getCount());
+		} else {
+			Log.e(tag, "not exists record:uid=" + recordId);
 		}
 	}
 }

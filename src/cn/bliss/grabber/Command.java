@@ -1,6 +1,5 @@
 package cn.bliss.grabber;
 
-import java.io.IOException;
 
 /**
  * 抓取接口
@@ -12,5 +11,5 @@ public interface Command {
 	/**
 	 * 执行
 	 */
-	void excute() throws IOException;
+	void excute();
 }

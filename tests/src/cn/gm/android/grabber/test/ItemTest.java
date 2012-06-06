@@ -14,7 +14,7 @@ public class ItemTest extends TestCase {
 		File to = new File(Environment.getExternalStorageDirectory(),
 				"grabber/t.j");
 		assertFalse(to.exists());
-		item.setTo(to.getAbsolutePath());
+		item.setTo(to);
 		item.excute();
 		assertTrue(to.exists());
 		to.delete();

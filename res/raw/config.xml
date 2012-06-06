@@ -3,30 +3,38 @@
 <grabber>
 	<userAgent>Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.79 Safari/535.11</userAgent>
 	<searchers>
+		<!-- 百度LOGO -->
+		<searcher uid="baidu_logo" type="simple">
+			<name>百度LOGO</name>
+			<path>/grabber/百度LOGO</path>
+			<url>http://www.baidu.com</url>
+			<selector>#lg>img</selector>
+		</searcher>
 		<!-- 网易摄影 -->
-		<searcher id="pp163_square" type="simple">
+		<searcher uid="pp163_square" type="simple">
 			<name>网易摄影</name>
 			<path>/grabber/网易摄影</path>
 			<url>http://pp.163.com/square</url>
 			<selector>ul.pics img</selector>
 		</searcher>
-		<!-- "妹子图"网的抓取配置 -->
-		<searcher id="meizitu_home" type="simple">
+				<!-- "妹子图"网的抓取配置 -->
+		<searcher uid="meizitu_home" type="simple">
 			<name>妹子图-首页</name>
 			<path>/grabber/妹子图</path>
 			<url>http://jandan.net/ooxx</url>
 			<selector>ol.commentlist>li>p>img,div.acv_comment>img</selector>
 		</searcher>
-		<searcher id="meizitu_all" type="paging">
+		<searcher uid="meizitu_all" type="paging">
 			<name>妹子图-所有页</name>
 			<path>/grabber/妹子图</path>
 			<url>http://jandan.net/ooxx</url>
 			<selector>ol.commentlist>li>p>img</selector>
+			<reversed>true</reversed>
 			<pagingUrl>{url}/page-{page}</pagingUrl>
 			<pagingSelector>span.current-comment-page</pagingSelector>
 			<pagingRegx>\[{page}\]</pagingRegx>
 		</searcher>
-		<searcher id="meinvmen_home" type="simple">
+		<searcher uid="meinvmen_home" type="simple">
 			<name>美女门-首页</name>
 			<path>/grabber/美女门</path>
 			<url>http://www.mmeinv.com</url>
@@ -34,7 +42,7 @@
 		</searcher>
 		
 		<!-- "美女门"网某个相册的抓取配置 -->
-		<searcher id="meinvmen_lvwanrou" type="paging">
+		<searcher uid="meinvmen_lvwanrou" type="paging">
 			<name>美女门-吕婉柔-魔鬼的身材</name>
 			<path>/grabber/美女门/吕婉柔</path>
 			<url>http://www.mmeinv.com/post/lvwanrou/3.html</url>

@@ -310,8 +310,8 @@
                         <constraint>
                           <height>-1</height>
                           <width>-1</width>
-                          <x>148</x>
-                          <y>274</y>
+                          <x>17</x>
+                          <y>302</y>
                         </constraint>
                         <sourceConnections>
                           <net.java.amateras.uml.classdiagram.model.GeneralizationModel>
@@ -360,8 +360,8 @@
                               <constraint>
                                 <height>-1</height>
                                 <width>-1</width>
-                                <x>13</x>
-                                <y>339</y>
+                                <x>26</x>
+                                <y>236</y>
                               </constraint>
                               <sourceConnections/>
                               <targetConnections>
@@ -411,8 +411,8 @@
                                     <constraint>
                                       <height>-1</height>
                                       <width>-1</width>
-                                      <x>147</x>
-                                      <y>334</y>
+                                      <x>131</x>
+                                      <y>282</y>
                                     </constraint>
                                     <sourceConnections>
                                       <net.java.amateras.uml.classdiagram.model.GeneralizationModel reference="../../.."/>
@@ -485,14 +485,26 @@
                                           <constraint>
                                             <height>-1</height>
                                             <width>-1</width>
-                                            <x>147</x>
-                                            <y>402</y>
+                                            <x>129</x>
+                                            <y>331</y>
                                           </constraint>
                                           <sourceConnections>
                                             <net.java.amateras.uml.classdiagram.model.GeneralizationModel>
                                               <source class="net.java.amateras.uml.classdiagram.model.ClassModel" reference="../../.."/>
                                               <target class="net.java.amateras.uml.classdiagram.model.ClassModel" reference="../../../../../../../../.."/>
-                                              <bendpoints/>
+                                              <bendpoints>
+                                                <net.java.amateras.uml.editpart.ConnectionBendpoint>
+                                                  <weight>0.5</weight>
+                                                  <d1>
+                                                    <width>-38</width>
+                                                    <height>-17</height>
+                                                  </d1>
+                                                  <d2>
+                                                    <width>84</width>
+                                                    <height>78</height>
+                                                  </d2>
+                                                </net.java.amateras.uml.editpart.ConnectionBendpoint>
+                                              </bendpoints>
                                               <showIcon>true</showIcon>
                                               <listeners serialization="custom">
                                                 <java.beans.PropertyChangeSupport>
@@ -1602,8 +1614,8 @@
       <constraint>
         <height>-1</height>
         <width>-1</width>
-        <x>470</x>
-        <y>52</y>
+        <x>463</x>
+        <y>13</y>
       </constraint>
       <sourceConnections/>
       <targetConnections>
@@ -1652,8 +1664,8 @@
             <constraint>
               <height>-1</height>
               <width>-1</width>
-              <x>467</x>
-              <y>112</y>
+              <x>464</x>
+              <y>65</y>
             </constraint>
             <sourceConnections>
               <net.java.amateras.uml.classdiagram.model.GeneralizationModel reference="../../.."/>
@@ -2621,8 +2633,8 @@ id,最后抓取时间,已抓总数,保存路径</old>
       <constraint>
         <height>57</height>
         <width>193</width>
-        <x>699</x>
-        <y>451</y>
+        <x>217</x>
+        <y>385</y>
       </constraint>
       <sourceConnections/>
       <targetConnections/>
@@ -2671,8 +2683,8 @@ id,抓取时间,源url,文件路径</old>
             <constraint>
               <height>55</height>
               <width>190</width>
-              <x>698</x>
-              <y>392</y>
+              <x>14</x>
+              <y>383</y>
             </constraint>
             <sourceConnections/>
             <targetConnections/>
@@ -2762,8 +2774,8 @@ id,抓取时间,源url,文件路径</old>
       <constraint>
         <height>-1</height>
         <width>-1</width>
-        <x>851</x>
-        <y>269</y>
+        <x>695</x>
+        <y>410</y>
       </constraint>
       <sourceConnections/>
       <targetConnections/>
@@ -3002,6 +3014,32 @@ id,抓取时间,源url,文件路径</old>
                 <name>save</name>
                 <type>void</type>
                 <params/>
+                <isAbstract>false</isAbstract>
+                <isStatic>false</isStatic>
+                <backgroundColor reference="../../../../../../children/net.java.amateras.uml.classdiagram.model.AttributeModel/backgroundColor"/>
+                <foregroundColor reference="../../../../../../children/net.java.amateras.uml.classdiagram.model.AttributeModel/foregroundColor"/>
+                <showIcon>true</showIcon>
+                <parent class="net.java.amateras.uml.classdiagram.model.ClassModel" reference="../../.."/>
+                <listeners serialization="custom">
+                  <java.beans.PropertyChangeSupport>
+                    <default>
+                      <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+                      <source class="net.java.amateras.uml.classdiagram.model.OperationModel" reference="../../../.."/>
+                    </default>
+                    <null/>
+                  </java.beans.PropertyChangeSupport>
+                </listeners>
+              </net.java.amateras.uml.classdiagram.model.OperationModel>
+              <net.java.amateras.uml.classdiagram.model.OperationModel>
+                <visibility class="net.java.amateras.uml.classdiagram.model.Visibility-1"/>
+                <name>add</name>
+                <type>void</type>
+                <params>
+                  <net.java.amateras.uml.classdiagram.model.Argument>
+                    <name>r</name>
+                    <type>Record</type>
+                  </net.java.amateras.uml.classdiagram.model.Argument>
+                </params>
                 <isAbstract>false</isAbstract>
                 <isStatic>false</isStatic>
                 <backgroundColor reference="../../../../../../children/net.java.amateras.uml.classdiagram.model.AttributeModel/backgroundColor"/>

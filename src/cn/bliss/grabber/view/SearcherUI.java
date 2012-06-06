@@ -3,7 +3,6 @@
  */
 package cn.bliss.grabber.view;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -27,8 +25,6 @@ import android.widget.Toast;
 import cn.bliss.grabber.Item;
 import cn.bliss.grabber.R;
 import cn.bliss.grabber.Searcher;
-import cn.bliss.grabber.cfg.History;
-import cn.bliss.grabber.cfg.Record;
 import cn.bliss.grabber.util.GrabberUtils;
 
 /**
@@ -51,12 +47,6 @@ public class SearcherUI extends RelativeLayout {
 
 	private Handler handler;
 	private Thread thread;
-	private Record record;
-	private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-	// sd卡的目录路径
-	private File sdCardDir = Environment.getExternalStorageDirectory();
-
 	private static DateFormat df4date = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss");
 	private static DateFormat df4fileName = new SimpleDateFormat(
@@ -65,6 +55,10 @@ public class SearcherUI extends RelativeLayout {
 	public SearcherUI(Context context) {
 		super(context);
 		init();
+	}
+
+	private String getText(int resId) {
+		return getContext().getText(resId).toString();
 	}
 
 	private void init() {
@@ -92,84 +86,73 @@ public class SearcherUI extends RelativeLayout {
 
 	public static final int MT_STARTED = 1;// 已启动
 	public static final int MT_FINDED = 2;// 查找完毕
-	public static final int MT_GRAB_ONE = 3;// 已抓取完一项
-	public static final int MT_FINISHED = 4;// 全部抓取完毕
-	public static final int MT_SKIP = 5;// 已抓取过忽略
-	public static final int MT_STOP = 8;// 中途停止
+	public static final int MT_GRAB_ONE_ITEM = 3;// 已抓取完一项
+	public static final int MT_GRAB_ONE_PAGE = 4;// 已抓取完一页
+	public static final int MT_FINISHED = 5;// 全部抓取完毕
+	public static final int MT_SKIP = 6;// 已抓取过忽略
+	public static final int MT_STOPED = 8;// 中途停止
 	public static final int MT_ERROR = 9;// 异常
 
 	private void initHandler() {
 		this.handler = new Handler() {
 			private Date startDate;
+			private int successCount;
 
 			@Override
 			public void handleMessage(Message m) {
 				System.out.println("what=" + m.what);
 				switch (m.what) {
 				case MT_STARTED:
-					// Toast.makeText(SearcherUI.this.getContext(), "开始抓取" +
-					// name.getText(),
-					// Toast.LENGTH_LONG).show();
-					startDate = new Date();
-					date.setText(df4date.format(startDate));
-					progress.setText("...");
+					successCount = 0;
 					break;
 				case MT_FINDED:
-					// Toast.makeText(SearcherUI.this.getContext(),
-					// "找到" + m.getData().getInt("count") + "项",
-					// Toast.LENGTH_LONG).show();
+					// 显示要抓取的总数量
 					progress.setText("..." + m.getData().getInt("count"));
 					break;
-				case MT_GRAB_ONE:
+				case MT_GRAB_ONE_ITEM:
+					// 累计成功抓取的总数
+					successCount += 1;
+
+					// 显示抓取进度
 					progress.setText("..." + m.getData().getInt("index") + "/"
 							+ m.getData().getInt("count"));
-
-					// 发布事件
-					for (OnProcessListener p : processEventListeners) {
-						p.onProcess(SearcherUI.this, MT_GRAB_ONE);
-					}
-					break;
-				case MT_SKIP:
-					// 发布事件
-					for (OnProcessListener p : processEventListeners) {
-						p.onProcess(SearcherUI.this, MT_SKIP);
-					}
 					break;
 				case MT_FINISHED:
-					optRun.setBackgroundResource(android.R.drawable.ic_media_play);
 					running = false;
-					// Toast.makeText(SearcherUI.this.getContext(), "完成抓取" +
-					// name.getText(),
-					// Toast.LENGTH_LONG).show();
+
+					// 处理界面显示
+					optRun.setBackgroundResource(android.R.drawable.ic_media_play);
 					Date endDate = new Date();
 					date.setText(df4date.format(endDate) + " "
 							+ GrabberUtils.getWasteTime(startDate, endDate));
-					progress.setText("ok-" + m.getData().getInt("count"));
+					progress.setText(getText(R.string.info_grabbed) + " "
+							+ successCount);
 					count.setText((Integer.parseInt(count.getText().toString()) + m
 							.getData().getInt("count")) + "");
 					break;
-
-				case MT_STOP:
-					optRun.setBackgroundResource(android.R.drawable.ic_media_play);
-					running = false;
-					Toast.makeText(SearcherUI.this.getContext(),
-							"停抓" + name.getText(), Toast.LENGTH_LONG).show();
-					progress.setText("stop");
-					break;
-
 				case MT_ERROR:
-					optRun.setBackgroundResource(android.R.drawable.ic_media_play);
 					running = false;
+					// 强制其实异常信息
 					Toast.makeText(
 							SearcherUI.this.getContext(),
-							"抓取" + name.getText() + "异常："
+							getText(R.string.info_grab) + "'" + name.getText()
+									+ "'" + getText(R.string.info_error) + ":"
 									+ m.getData().getString("msg"),
 							Toast.LENGTH_LONG).show();
-					System.out.println("error:" + m.getData().getString("msg"));
-					progress.setText("error");
+					Log.e(tag, "error:" + m.getData().getString("msg"));
+
+					// 处理界面显示
+					optRun.setBackgroundResource(android.R.drawable.ic_media_play);
+					progress.setText(getText(R.string.info_fireEeror));
 					break;
 				default:
 				}
+
+				// 发布事件
+				for (OnProcessListener p : processEventListeners) {
+					p.onProcess(SearcherUI.this, m.what);
+				}
+
 				super.handleMessage(m);
 			}
 		};
@@ -227,40 +210,41 @@ public class SearcherUI extends RelativeLayout {
 	}
 
 	public void stop() {
-		optRun.setBackgroundResource(android.R.drawable.ic_media_play);
 		running = false;
 
-		// 停止抓取
-		doStop();
+		// 处理界面显示
+		optRun.setBackgroundResource(android.R.drawable.ic_media_play);
+		progress.setText(getText(R.string.info_stoped));
 
-		// 发布事件
-		for (OnPauseListener l : pauseEventListeners) {
-			l.onPause(this);
-		}
-	}
-
-	private void doStop() {
-		Toast.makeText(this.getContext(), "停抓：" + name, Toast.LENGTH_SHORT);
-
-		// 终止线程
+		// 停止抓取线程
 		if (thread != null)
 			thread.interrupt();
+
+		// 发布事件
+		for (OnProcessListener p : processEventListeners) {
+			p.onProcess(SearcherUI.this, MT_STOPED);
+		}
 	}
 
 	public void start() {
-		optRun.setBackgroundResource(android.R.drawable.ic_media_pause);
 		running = true;
 
+		// 处理界面显示
+		optRun.setBackgroundResource(android.R.drawable.ic_media_pause);
+		Date startDate = new Date();
+		date.setText(df4date.format(startDate));
+		progress.setText("...");
+
 		// 启动抓取线程
-		doStart();
+		startThread();
 
 		// 发布事件
-		for (OnStartListener l : startEventListeners) {
-			l.onStart(this);
+		for (OnProcessListener p : processEventListeners) {
+			p.onProcess(SearcherUI.this, MT_STARTED);
 		}
 	}
 
-	private void doStart() {
+	private void startThread() {
 		thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -288,34 +272,18 @@ public class SearcherUI extends RelativeLayout {
 						message.setData(data);
 						data.putInt("count", items.size());
 						data.putInt("index", index);
+						//data.putInt("page", item.getPage());
 						if (running) {
 							Log.i(tag, "from=" + item.getFrom());
-							if (SearcherUI.this.record.has(item.getFrom())) {
-								message.what = MT_SKIP;
-								handler.sendMessage(message);
-								continue;
-							}
-
-							// 保存的文件路径名
-							String path = searcher.getPath() + "/"
-									+ getToFilename(item.getFrom());
-							item.setTo(new File(sdCardDir, path));
 
 							// 执行抓取并保存
 							item.excute();
 
-							// 添加抓取记录
-							History history = new History();
-							history.setDate(df.format(new Date()));
-							history.setFrom(item.getFrom());
-							history.setTo(path);
-							record.add(history, true);
-
 							// 发送信息
-							message.what = MT_GRAB_ONE;
+							message.what = MT_GRAB_ONE_ITEM;
 							handler.sendMessage(message);
 						} else {
-							message.what = MT_STOP;
+							message.what = MT_STOPED;
 							handler.sendMessage(message);
 							break;// 停抓
 						}
@@ -368,17 +336,7 @@ public class SearcherUI extends RelativeLayout {
 	}
 
 	// == 事件相关
-	private List<OnStartListener> startEventListeners = new ArrayList<OnStartListener>();
-	private List<OnPauseListener> pauseEventListeners = new ArrayList<OnPauseListener>();
 	private List<OnProcessListener> processEventListeners = new ArrayList<OnProcessListener>();
-
-	public void setOnStartListener(OnStartListener event) {
-		startEventListeners.add(event);
-	}
-
-	public void setOnPauseListener(OnPauseListener event) {
-		pauseEventListeners.add(event);
-	}
 
 	public void setOnProcessListener(OnProcessListener event) {
 		processEventListeners.add(event);
@@ -412,9 +370,5 @@ public class SearcherUI extends RelativeLayout {
 	 */
 	public interface OnProcessListener {
 		void onProcess(View view, int what);
-	}
-
-	public void setRecord(Record record) {
-		this.record = record;
 	}
 }

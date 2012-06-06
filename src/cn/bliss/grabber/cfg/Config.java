@@ -60,7 +60,7 @@ public class Config {
 			XmlPullParser parser = Xml.newPullParser();
 			parser.setInput(in, "utf-8");
 			int event = parser.getEventType();
-			String id, type, name;
+			String uid, type, name;
 			while (event != XmlPullParser.END_DOCUMENT) {
 				name = parser.getName();
 				switch (event) {
@@ -68,7 +68,7 @@ public class Config {
 					if ("userAgent".equals(name)) {
 						this.userAgent = parser.nextText().toString();
 					} else if ("searcher".equals(name)) {
-						id = parser.getAttributeValue(0);
+						uid = parser.getAttributeValue(0);
 						type = parser.getAttributeValue(1);
 						// System.out.println("id=" + id);
 						// System.out.println("type=" + type);
@@ -78,7 +78,7 @@ public class Config {
 							searcher = new PagingSearcher();
 						}
 						if (searcher != null)
-							searcher.setId(id);
+							searcher.setUid(uid);
 
 					} else if ("name".equals(name)) {
 						searcher.setName(parser.nextText().toString());
