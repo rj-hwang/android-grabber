@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import android.util.Log;
 import cn.bliss.grabber.Item;
@@ -25,8 +26,8 @@ import cn.bliss.grabber.PageItem;
 public class PagingSearcher extends HttpSearcher {
 	private static final String tag = PagingSearcher.class.getName();
 	private String pagingUrl;// 分页网址的url模式
-	private String pagingSelector;// 获取分页信息的选择器
-	private String pagingRegx;// 从分页信息解析出总页数的正则表达式
+	private String pagingCountSelector;// 获取分页信息的选择器
+	private String pagingCountRegx;// 从分页信息解析出总页数的正则表达式
 	private boolean reversed;// 是否逆向分业抓取，即从第一页开始抓还是从最后页开始抓
 
 	public boolean isReversed() {
@@ -45,42 +46,71 @@ public class PagingSearcher extends HttpSearcher {
 		this.pagingUrl = pagingUrl;
 	}
 
-	public String getPagingSelector() {
-		return pagingSelector;
+	public String getPagingCountSelector() {
+		return pagingCountSelector;
 	}
 
-	public void setPagingSelector(String pagingSelector) {
-		this.pagingSelector = pagingSelector;
+	public void setPagingCountSelector(String pagingCountSelector) {
+		this.pagingCountSelector = pagingCountSelector;
 	}
 
-	public String getPagingRegx() {
-		return pagingRegx;
+	public String getPagingCountRegx() {
+		return pagingCountRegx;
 	}
 
-	public void setPagingRegx(String pagingRegx) {
-		this.pagingRegx = pagingRegx;
+	public void setPagingCountRegx(String pagingCountRegx) {
+		this.pagingCountRegx = pagingCountRegx;
+	}
+
+	/**
+	 * 获取指定页码的请求url
+	 * 
+	 * @param pageNo
+	 *            页码
+	 * @return
+	 */
+	public String getPagingUrl(int pageNo) {
+		// url - 主url
+		// urlName - 主url去除扩展名后的部分，如“http://.../xx.html”的“http://.../xx”
+		// pageNo - 当前页码
+		String pattern = getPagingUrl();
+		String url = getUrl();
+		if (pagingUrl.indexOf("{url}") != -1)
+			pattern = pattern.replaceAll("\\{url\\}", url);
+		if (pattern.indexOf("{pageNo}") != -1)
+			pattern = pattern
+					.replaceAll("\\{pageNo\\}", String.valueOf(pageNo));
+		if (pattern.indexOf("{urlName}") != -1) {
+			int sepIndex = url.lastIndexOf(".");
+			pattern = pattern.replaceAll("\\{urlName\\}",
+					url.substring(0, sepIndex));
+		}
+
+		return pattern;
 	}
 
 	@Override
 	public List<Item> list() throws IOException {
-		List<Item> items, pageItems = new ArrayList<Item>();
+		List<Item> pageItems = new ArrayList<Item>();
 		PageItem pageItem;
 
 		// 获取当前页
-		Document doc = find(items = new ArrayList<Item>(), getUrl(),
-				getSelector());
+		Document doc = getDocument(getUrl(), this.getUserAgent());
 
 		// 获取分页数
-		String pagingInfo = doc.select(this.getPagingSelector()).text();
-		int pageCount = buildPageCount(pagingInfo, this.getPagingRegx());
+		Elements els = doc.select(this.getPagingCountSelector());
+		if (els == null || els.isEmpty())
+			throw new IOException("can't find pagingCount info.");
+		String pagingInfo = els.text();
+		int pageCount = getPageCount(pagingInfo);
 		Log.d(tag, "pageCount=" + pageCount);
 
 		File to = new File(sdCardDir, this.getPath());
 		pageItem = new PageItem();
 		pageItem.setPid(getUid());
+		pageItem.setSelector(getSelector());
 		pageItem.setFrom(getUrl());
 		pageItem.setTo(to);
-		pageItem.add(items);
 		pageItems.add(pageItem);
 
 		// 没有分页信息直接返回
@@ -93,31 +123,28 @@ public class PagingSearcher extends HttpSearcher {
 		}
 
 		// 循环每一页
-		String pagingUrl;
 		if (isReversed()) {// 按页码从大到小抓取
 			for (int pageIndex = pageCount - 2; pageIndex >= 0; pageIndex--) {
-				pagingUrl = buildPagingUrl(this.getPagingUrl(), this.getUrl(),
-						pageIndex);
-				find(items = new ArrayList<Item>(), pagingUrl, getSelector());
-
 				pageItem = new PageItem();
-				pageItem.setFrom(pagingUrl);
-				pageItem.setIndex(pageIndex);
+				pageItem.setPid(getUid());
+				pageItem.setSelector(getSelector());
 				pageItem.setTo(to);
-				pageItem.add(items);
+
+				pageItem.setFrom(getPagingUrl(pageIndex + 1));
+				pageItem.setIndex(pageIndex);
+				
 				pageItems.add(pageItem);
 			}
 		} else {// 按页码从小到大抓取
 			for (int pageIndex = 1; pageIndex <= pageCount - 1; pageIndex++) {
-				pagingUrl = buildPagingUrl(this.getPagingUrl(), this.getUrl(),
-						pageIndex);
-				find(items = new ArrayList<Item>(), pagingUrl, getSelector());
-
 				pageItem = new PageItem();
-				pageItem.setFrom(pagingUrl);
+				pageItem.setPid(getUid());
+				pageItem.setSelector(getSelector());
 				pageItem.setTo(to);
+
+				pageItem.setFrom(getPagingUrl(pageIndex + 1));
 				pageItem.setIndex(pageIndex);
-				pageItem.add(items);
+				
 				pageItems.add(pageItem);
 			}
 		}
@@ -128,52 +155,24 @@ public class PagingSearcher extends HttpSearcher {
 	/**
 	 * 解析出总页数
 	 * 
-	 * @param text
+	 * @param pageCountInfo
 	 *            包含总页数的文本信息
-	 * @param pattern
-	 *            用于解析总页数的正则表达式
 	 * @return
 	 */
-	public static int buildPageCount(String text, String pattern) {
-		int i = pattern.indexOf("{page}");
+	public int getPageCount(String pageCountInfo) {
+		String pattern = this.getPagingCountRegx();// 用于解析总页数的正则表达式
+		int i = pattern.indexOf("{pageCount}");
 		if (i != -1) {
 			pattern = "(?<=" + pattern.substring(0, i) + ")(\\d)+(?="
-					+ pattern.substring(i + 6) + ")";
+					+ pattern.substring(i + 11) + ")";
 		}
 		Pattern p = Pattern.compile(pattern);
-		Matcher m = p.matcher(text);
+		Matcher m = p.matcher(pageCountInfo);
 		String t;
 		if (m.find())
 			t = m.group();
 		else
 			t = null;
 		return t != null ? Integer.parseInt(t) : 0;
-	}
-
-	/**
-	 * 构建实际的分页请求url
-	 * 
-	 * @param pattern
-	 *            抽象的分页url
-	 * @param url
-	 *            原始的url
-	 * @param pageIndex
-	 *            页索引号，从0开始
-	 * @return
-	 */
-	public static String buildPagingUrl(String pattern, String url,
-			int pageIndex) {
-		if (pattern.indexOf("{url}") != -1)
-			pattern = pattern.replaceAll("\\{url\\}", url);
-		if (pattern.indexOf("{page}") != -1)
-			pattern = pattern.replaceAll("\\{page\\}",
-					String.valueOf(pageIndex + 1));
-		if (pattern.indexOf("{urlName}") != -1) {
-			int sepIndex = url.lastIndexOf(".");
-			pattern = pattern.replaceAll("\\{urlName\\}",
-					url.substring(0, sepIndex));
-		}
-
-		return pattern;
 	}
 }

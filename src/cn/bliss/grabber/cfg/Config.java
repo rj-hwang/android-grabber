@@ -24,14 +24,18 @@ public class Config {
 	private String userAgent;
 	private List<Searcher> list;
 
-	/**获取用户代理
+	/**
+	 * 获取用户代理
+	 * 
 	 * @return
 	 */
 	public String getUserAgent() {
 		return userAgent;
 	}
-	
-	/**设置配置文件
+
+	/**
+	 * 设置配置文件
+	 * 
 	 * @param from
 	 * @return
 	 */
@@ -92,7 +96,22 @@ public class Config {
 						if (searcher instanceof HttpSearcher)
 							((HttpSearcher) searcher).setSelector(parser
 									.nextText().toString());
+					} else if ("pagingUrl".equals(name)) {
+						if (searcher instanceof PagingSearcher)
+							((PagingSearcher) searcher).setPagingUrl(parser
+									.nextText().toString());
+					} else if ("pagingCountSelector".equals(name)) {
+						if (searcher instanceof PagingSearcher)
+							((PagingSearcher) searcher)
+									.setPagingCountSelector(parser.nextText()
+											.toString());
+					} else if ("pagingCountRegx".equals(name)) {
+						if (searcher instanceof PagingSearcher)
+							((PagingSearcher) searcher)
+									.setPagingCountRegx(parser.nextText()
+											.toString());
 					}
+
 					break;
 				case XmlPullParser.END_TAG:
 					if ("searcher".equals(name)) {

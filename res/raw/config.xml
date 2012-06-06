@@ -47,9 +47,9 @@
 			<path>/grabber/美女门/吕婉柔</path>
 			<url>http://www.mmeinv.com/post/lvwanrou/3.html</url>
 			<selector>div.pic img</selector>
-			<pagingUrl>{urlName}_{page}.html</pagingUrl>
-			<pagingSelector>ul.pagelist>li>a</pagingSelector>
-			<pagingRegx>共{page}页</pagingRegx>
+			<pagingUrl>{urlName}_{pageNo}.html</pagingUrl>
+			<pagingCountSelector>ul.pagelist>li>a</pagingCountSelector>
+			<pagingCountRegx>共{pageCount}页</pagingCountRegx>
 		</searcher>
 	</searchers>
 </grabber>

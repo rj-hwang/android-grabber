@@ -59,20 +59,18 @@ public class HttpSearcher extends AbstractSearcher implements Searcher {
 	@Override
 	public List<Item> list() throws IOException {
 		List<Item> container = new ArrayList<Item>();
-		find(container,getUrl(),getSelector());
+		find(container, getUrl(), getSelector());
 		return container;
 	}
 
-	protected Document find(List<Item> container,String from,String selector) throws IOException {
+	protected Document find(List<Item> container, String from, String selector)
+			throws IOException {
 		Log.d(tag, "----url=" + url);
 		Log.d(tag, "----userAgent=" + userAgent);
 		Log.d(tag, "----selector=" + selector);
+
 		// 获取请求页面
-		Connection connection = Jsoup.connect(from);
-		if (this.getUserAgent() != null)
-			connection.userAgent(this.getUserAgent());// 使用用户代理
-		connection.timeout(1000);
-		Document doc = connection.get();
+		Document doc = getDocument(from, userAgent);
 
 		// 获取匹配的元素
 		Elements els = doc.select(selector);
@@ -82,24 +80,45 @@ public class HttpSearcher extends AbstractSearcher implements Searcher {
 		Item item;
 		int index = 0;
 		File to = new File(sdCardDir, this.getPath());
+		String domain = getDomain(this.getUrl());
 		for (Element el : els) {
 			item = new Item();
 			item.setIndex(index);
 			item.setPid(getUid());
-			item.setFrom(this.getItemFrom(el));
+			item.setFrom(getItemFrom(el,domain));
 			item.setTo(to);
 			container.add(item);
-			
+
 			index++;
 		}
 
 		return doc;
 	}
 
-	protected String getItemFrom(Element el) {
+	/**
+	 * 获取指定url的html文档
+	 * 
+	 * @param url
+	 *            请求的url
+	 * @param userAgent
+	 *            使用的用户代理
+	 * @return
+	 * @throws IOException
+	 */
+	public static Document getDocument(String url, String userAgent)
+			throws IOException {
+		Log.d(tag, "connecting..." + url);
+		Connection connection = Jsoup.connect(url);
+		if (userAgent != null)
+			connection.userAgent(userAgent);// 使用用户代理
+		connection.timeout(1000);
+		return connection.get();
+	}
+
+	public static String getItemFrom(Element el,String domain) {
 		String src = el.attr("src");
 		if (!src.startsWith("http")) {
-			src = getDomain(this.getUrl()) + src;
+			src = domain + src;
 		}
 		return src;
 	}

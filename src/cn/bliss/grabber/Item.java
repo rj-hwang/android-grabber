@@ -2,6 +2,7 @@ package cn.bliss.grabber;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
@@ -68,49 +69,20 @@ public class Item implements Command {
 		this.index = index;
 	}
 
-
 	@Override
 	public void excute() {
 		// 避免重复抓取
 		if (Records.getInstance().has(getFrom())) {
 			// 发布抓取被忽略事件
 			for (OnProcessListener l : processEventListeners) {
-				l.onProcess(new GrabEvent(this, getIndex(),
-						EventType.Skip));
+				l.onProcess(new GrabEvent(this, getIndex(), EventType.Skip));
 			}
 			return;
 		}
 
 		// 抓取数据
 		try {
-			URL url = new URL(this.from);
-			URLConnection con = url.openConnection();
-			con.setConnectTimeout(10000);// 设置连接主机超时（单位：毫秒）
-			con.setReadTimeout(10000);// 设置从主机读取数据超时（单位：毫秒）
-			InputStream is = con.getInputStream();// 文件流
-
-			// 创建要保存到的路径
-			if (!to.exists()) {
-				to.mkdirs();
-			}
-
-			// 保存到文件
-			byte[] bs = new byte[1024];// 1K的数据缓冲
-			int len;// 读取到的数据长度
-			File wto = new File(to,getToFilename(getFrom()));
-			OutputStream os = new FileOutputStream(wto);
-			while ((len = is.read(bs)) != -1) {
-				os.write(bs, 0, len);
-			}
-			os.close();
-			
-			// 添加抓取记录
-			History history = new History();
-			history.setDate(df4datetime.format(new Date()));
-			history.setFrom(getFrom());
-			history.setTo(wto.getAbsolutePath());
-			Log.d(tag, "---------");
-			Records.getInstance().addHistory(pid, history, true);
+			grabOne(getPid(), getFrom(), getTo());
 
 			// 发布抓完事件
 			for (OnProcessListener l : processEventListeners) {
@@ -124,6 +96,37 @@ public class Item implements Command {
 				l.onProcess(new GrabEvent(this, getIndex(), EventType.Error, e));
 			}
 		}
+	}
+
+	protected static void grabOne(String pid, String from, File to)
+			throws IOException {
+		URL url = new URL(from);
+		URLConnection con = url.openConnection();
+		con.setConnectTimeout(10000);// 设置连接主机超时（单位：毫秒）
+		con.setReadTimeout(10000);// 设置从主机读取数据超时（单位：毫秒）
+		InputStream is = con.getInputStream();// 文件流
+
+		// 创建要保存到的路径
+		if (!to.exists()) {
+			to.mkdirs();
+		}
+
+		// 保存到文件
+		byte[] bs = new byte[1024];// 1K的数据缓冲
+		int len;// 读取到的数据长度
+		File wto = new File(to, getToFilename(from));
+		OutputStream os = new FileOutputStream(wto);
+		while ((len = is.read(bs)) != -1) {
+			os.write(bs, 0, len);
+		}
+		os.close();
+
+		// 添加抓取记录
+		History history = new History();
+		history.setDate(df4datetime.format(new Date()));
+		history.setFrom(from);
+		history.setTo(wto.getAbsolutePath());
+		Records.getInstance().addHistory(pid, history, true);
 	}
 
 	/**
@@ -149,7 +152,7 @@ public class Item implements Command {
 		}
 		int sepIndex = path.lastIndexOf(".");
 		int lIndex = path.lastIndexOf("/");
-		if(lIndex > sepIndex)
+		if (lIndex > sepIndex)
 			return ".png";// 没有扩展名就默认给一个
 		return (sepIndex != -1 ? path.substring(sepIndex + 1) : null);
 	}

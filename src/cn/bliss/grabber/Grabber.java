@@ -108,6 +108,8 @@ public class Grabber {
 					message.setData(data);
 					data.putString("uid", searcher.getUid());
 					data.putInt("count", items.size());
+					data.putString("type", items.isEmpty() ? "" : items.get(0)
+							.getClass().getSimpleName());
 					handler.sendMessage(message);
 
 					// 侦听抓取事件，转发为线程消息
@@ -173,7 +175,8 @@ public class Grabber {
 
 	private void initHandler() {
 		this.handler = new Handler() {
-			int successCount;
+			int successCount, pageIndex, itemIndex;
+			String type;
 
 			@Override
 			public void handleMessage(Message m) {
@@ -184,12 +187,29 @@ public class Grabber {
 				Log.d(tag, "msg=" + m.getData().getString("msg"));
 				if (m.what == EventType.Finded.ordinal()) {
 					successCount = 0;
+					pageIndex = -1;
+					type = m.getData().getString("type");
+					Log.d(tag, "type=" + type);
 					// 显示要抓取的总数量
 					ui.setProgress("..." + m.getData().getInt("count"));
 				} else if (m.what == EventType.GrabOneItem.ordinal()) {
 					successCount += 1;
+					itemIndex = m.getData().getInt("index");
+					Log.d(tag, "itemIndex=" + itemIndex);
 					// 显示抓取进度
-					ui.setProgress("..." + (m.getData().getInt("index") + 1) + "/"
+					if (pageIndex != -1) {
+						ui.setProgress("..." + (itemIndex + 1) + "/? "
+								+ (pageIndex + 2) + "/"
+								+ m.getData().getInt("count"));
+					} else {
+						ui.setProgress("..." + (itemIndex + 1) + "/"
+								+ m.getData().getInt("count"));
+					}
+				} else if (m.what == EventType.GrabOnePage.ordinal()) {
+					pageIndex = m.getData().getInt("index");
+					Log.d(tag, "pageIndex=" + pageIndex);
+					// 显示抓取进度
+					ui.setProgress("..." + (pageIndex + 2) + "/"
 							+ m.getData().getInt("count"));
 				} else if (m.what == EventType.Skip.ordinal()) {
 					// 显示抓取进度

@@ -166,6 +166,12 @@ public class MainActivity extends Activity {
 	protected void onDestroy() {
 		Log.d(tag, "onDestroy");
 
+		// 停抓所有
+		for (Grabber grabber : grabbers) {
+			if (grabber.isRunning())
+				grabber.stop();
+		}
+
 		// 保存抓取记录
 		records.save();
 
