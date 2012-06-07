@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">微抓</string>
-    <string name="app_ver">v0.6 alpha7</string>
+    <string name="app_ver">v0.6 beta1</string>
     <string name="app_desc">你投入越多\n就收获越多</string>
     <string name="about">关于</string>
     <string name="info_grabbed">已抓完</string>

@@ -102,8 +102,8 @@ public class Item implements Command {
 			throws IOException {
 		URL url = new URL(from);
 		URLConnection con = url.openConnection();
-		con.setConnectTimeout(10000);// 设置连接主机超时（单位：毫秒）
-		con.setReadTimeout(10000);// 设置从主机读取数据超时（单位：毫秒）
+		con.setConnectTimeout(30000);// 设置连接主机超时（单位：毫秒）
+		con.setReadTimeout(60000);// 设置从主机读取数据超时（单位：毫秒）
 		InputStream is = con.getInputStream();// 文件流
 
 		// 创建要保存到的路径

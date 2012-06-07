@@ -7,6 +7,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import android.util.Log;
+import cn.bliss.grabber.cfg.Records;
 import cn.bliss.grabber.event.EventType;
 import cn.bliss.grabber.event.GrabEvent;
 import cn.bliss.grabber.searcher.HttpSearcher;
@@ -46,26 +47,38 @@ public class PageItem extends Item {
 	public void excute() {
 		try {
 			// 获取匹配的元素
-			Document doc = HttpSearcher.getDocument(getFrom(), null);// TODO add Agent
+			Document doc = HttpSearcher.getDocument(getFrom(), null);// TODO add
+																		// Agent
 			Elements els = doc.select(getSelector());
 			if (els == null || els.isEmpty()) {
 				throw new IOException("find empty items from:" + getFrom());
 			}
 			count = els.size();
 			Log.d(tag, "count=" + count);
-			
+
 			// 循环每个元素抓取
 			String url;
 			String domain = HttpSearcher.getDomain(getFrom());
 			int index = 0;
 			for (Element el : els) {
 				url = HttpSearcher.getItemFrom(el, domain);
-				grabOne(getPid(), url, getTo());
 
-				// 发布抓完一项事件
-				for (OnProcessListener l : processEventListeners) {
-					l.onProcess(new GrabEvent(this, index,
-							EventType.GrabOneItem));
+				// 避免重复抓取
+				if (Records.getInstance().has(url)) {
+					// 发布抓取被忽略事件
+					for (OnProcessListener l : processEventListeners) {
+						l.onProcess(new GrabEvent(this, index, EventType.Skip,
+								count));
+					}
+				} else {
+					// 执行抓取
+					grabOne(getPid(), url, getTo());
+
+					// 发布抓完一项事件
+					for (OnProcessListener l : processEventListeners) {
+						l.onProcess(new GrabEvent(this, index,
+								EventType.GrabOneItem, count));
+					}
 				}
 				index++;
 			}
@@ -73,7 +86,7 @@ public class PageItem extends Item {
 			// 发布抓完一页事件
 			for (OnProcessListener l : processEventListeners) {
 				l.onProcess(new GrabEvent(this, getIndex(),
-						EventType.GrabOnePage));
+						EventType.GrabOnePage, count));
 			}
 		} catch (IOException e) {
 			Log.e(tag, e.getMessage(), e);

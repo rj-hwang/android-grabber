@@ -17,32 +17,35 @@
 			<url>http://pp.163.com/square</url>
 			<selector>ul.pics img</selector>
 		</searcher>
-				<!-- "妹子图"网的抓取配置 -->
+		
+		<!-- 妹子图首页 -->
 		<searcher uid="meizitu_home" type="simple">
 			<name>妹子图-首页</name>
 			<path>/grabber/妹子图</path>
 			<url>http://jandan.net/ooxx</url>
 			<selector>ol.commentlist>li>p>img,div.acv_comment>img</selector>
 		</searcher>
+		<!-- 妹子图全站 -->
 		<searcher uid="meizitu_all" type="paging">
-			<name>妹子图-所有页</name>
+			<name>妹子图-全站</name>
 			<path>/grabber/妹子图</path>
 			<url>http://jandan.net/ooxx</url>
 			<selector>ol.commentlist>li>p>img</selector>
 			<reversed>true</reversed>
-			<pagingUrl>{url}/page-{page}</pagingUrl>
-			<pagingSelector>span.current-comment-page</pagingSelector>
-			<pagingRegx>\[{page}\]</pagingRegx>
+			<pagingUrl>{url}/page-{pageNo}</pagingUrl>
+			<pagingCountSelector>span.current-comment-page</pagingCountSelector>
+			<pagingCountRegx>\[{pageCount}\]</pagingCountRegx>
 		</searcher>
+		
+		<!-- 美女门首页 -->
 		<searcher uid="meinvmen_home" type="simple">
 			<name>美女门-首页</name>
 			<path>/grabber/美女门</path>
 			<url>http://www.mmeinv.com</url>
 			<selector>div#SlidePlayer>ul.Slides>li>a>img,div.content>ul>li>a>img</selector>
 		</searcher>
-		
-		<!-- "美女门"网某个相册的抓取配置 -->
-		<searcher uid="meinvmen_lvwanrou" type="paging">
+		<!-- 美女门某个相册 -->
+		<searcher uid="meinvmen_lvwanrou01" type="paging">
 			<name>美女门-吕婉柔-魔鬼的身材</name>
 			<path>/grabber/美女门/吕婉柔</path>
 			<url>http://www.mmeinv.com/post/lvwanrou/3.html</url>
@@ -50,6 +53,60 @@
 			<pagingUrl>{urlName}_{pageNo}.html</pagingUrl>
 			<pagingCountSelector>ul.pagelist>li>a</pagingCountSelector>
 			<pagingCountRegx>共{pageCount}页</pagingCountRegx>
+		</searcher>
+		<searcher id="meinvmen_wangqiuzi01" type="paging">
+			<name>美女门-王秋紫-冬日里的女人</name>
+			<path>/grabber/美女门王秋紫</path>
+			<url>http://www.mmeinv.com/post/wangqiuzi/8.html</url>
+			<selector>div.pic img</selector>
+			<pagingUrl>{urlName}_{pageNo}.html</pagingUrl>
+			<pagingCountSelector>ul.pagelist>li>a</pagingCountSelector>
+			<pagingCountRegx>共{pageCount}页</pagingCountRegx>
+		</searcher>
+		<searcher id="meinvmen_liyingzhi01" type="paging">
+			<name>美女门-李颖芝-淡如清水</name>
+			<path>/grabber/美女门/李颖芝</path>
+			<url>http://www.mmeinv.com/post/liyingzhi/86.html</url>
+			<selector>div.pic img</selector>
+			<pagingUrl>{urlName}_{pageNo}.html</pagingUrl>
+			<pagingCountSelector>ul.pagelist>li>a</pagingCountSelector>
+			<pagingCountRegx>共{pageCount}页</pagingCountRegx>
+		</searcher>
+		<searcher id="meinvmen_jinmeixin01" type="paging">
+			<name>美女门-金美辛-小性感</name>
+			<path>/grabber/美女门/金美辛</path>
+			<url>http://www.mmeinv.com/post/jinmeixin/191.html</url>
+			<selector>div.pic img</selector>
+			<pagingUrl>{urlName}_{pageNo}.html</pagingUrl>
+			<pagingCountSelector>ul.pagelist>li>a</pagingCountSelector>
+			<pagingCountRegx>共{pageCount}页</pagingCountRegx>
+		</searcher>
+		<searcher id="meinvmen_jinmeixin02" type="paging">
+			<name>美女门-金美辛-朵两生花</name>
+			<path>/grabber/美女门/金美辛</path>
+			<url>http://www.mmeinv.com/post/jinmeixin/193.html</url>
+			<selector>div.pic img</selector>
+			<pagingUrl>{urlName}_{pageNo}.html</pagingUrl>
+			<pagingCountSelector>ul.pagelist>li>a</pagingCountSelector>
+			<pagingCountRegx>共{pageCount}页</pagingCountRegx>
+		</searcher>
+		<searcher id="meinvmen_sunxinya01" type="paging">
+			<name>美女门-孙心娅-这么近那么远</name>
+			<path>/grabber/美女门/金美辛</path>
+			<url>http://www.mmeinv.com/post/sunxinya/117.html</url>
+			<selector>div.pic img</selector>
+			<pagingUrl>{urlName}_{pageNo}.html</pagingUrl>
+			<pagingCountSelector>ul.pagelist>li>a</pagingCountSelector>
+			<pagingCountRegx>共{pageCount}页</pagingCountRegx>
+		</searcher>
+		<searcher id="ppjpg_wanglihong01" type="paging">
+			<name>帅哥网-王力宏-运动写真</name>
+			<path>/grabber/帅哥网/王力宏</path>
+			<url>http://www.ppjpg.com/gangtaishuaige/10.html</url>
+			<selector>div#contents>img</selector>
+			<pagingUrl>{urlName}_{pageNo}.html</pagingUrl>
+			<pagingCountSelector>ul.pagelist>a</pagingCountSelector>
+			<pagingCountRegx>共{pageCount}页: </pagingCountRegx>
 		</searcher>
 	</searchers>
 </grabber>

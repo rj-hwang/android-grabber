@@ -110,6 +110,7 @@ public class Grabber {
 					data.putInt("count", items.size());
 					data.putString("type", items.isEmpty() ? "" : items.get(0)
 							.getClass().getSimpleName());
+					Log.i(tag, "--type=" + data.getString("type"));
 					handler.sendMessage(message);
 
 					// 侦听抓取事件，转发为线程消息
@@ -123,7 +124,7 @@ public class Grabber {
 								Bundle data = new Bundle();
 								message.setData(data);
 								data.putString("uid", searcher.getUid());
-								data.putInt("count", count);
+								data.putInt("count", event.getCount());
 								data.putInt("index", event.getIndex());
 								if (event.getError() != null)
 									data.putString("msg", event.getError()
@@ -149,7 +150,7 @@ public class Grabber {
 							data.putInt("index", index);
 							data.putInt("count", count);
 							handler.sendMessage(message);
-							break;
+							return;
 						}
 						index++;
 					}
@@ -175,54 +176,81 @@ public class Grabber {
 
 	private void initHandler() {
 		this.handler = new Handler() {
-			int successCount, pageIndex, itemIndex;
-			String type;
+			int successCount, pageIndex = -1, count, pageCount;
 
 			@Override
 			public void handleMessage(Message m) {
 				String uid = searcher.getUid();
-				Log.d(tag, "uid=" + uid);
-				Log.d(tag, "what=" + m.what);
-				Log.d(tag, "count=" + m.getData().getInt("count"));
-				Log.d(tag, "msg=" + m.getData().getString("msg"));
+				Log.d(tag, "h:uid=" + uid);
+				Log.d(tag, "h:what=" + m.what);
+				Log.d(tag, "h:type=" + m.getData().getString("type"));
+				Log.d(tag, "h:count=" + m.getData().getInt("count"));
+				Log.d(tag, "h:index=" + m.getData().getInt("index"));
+				Log.d(tag, "h:pageCount=" + pageCount);
+				Log.d(tag, "h:pageIndex=" + pageIndex);
+				Log.d(tag, "h:successCount=" + successCount);
+				Log.d(tag, "h:msg=" + m.getData().getString("msg"));
 				if (m.what == EventType.Finded.ordinal()) {
 					successCount = 0;
-					pageIndex = -1;
-					type = m.getData().getString("type");
-					Log.d(tag, "type=" + type);
+					pageIndex = 0;
+
 					// 显示要抓取的总数量
-					ui.setProgress("..." + m.getData().getInt("count"));
+					if ("PageItem".equals(m.getData().getString("type"))) {// 分页抓取
+						pageCount = m.getData().getInt("count");// 记录总页数
+						ui.setProgress("..." + m.getData().getInt("count")
+								+ "p");
+					} else {// 简单抓取
+						pageCount = 0;
+						count = m.getData().getInt("count");// 记录总抓取数
+						ui.setProgress("..." + count);
+					}
 				} else if (m.what == EventType.GrabOneItem.ordinal()) {
 					successCount += 1;
-					itemIndex = m.getData().getInt("index");
+					int itemIndex = m.getData().getInt("index");
 					Log.d(tag, "itemIndex=" + itemIndex);
 					// 显示抓取进度
-					if (pageIndex != -1) {
-						ui.setProgress("..." + (itemIndex + 1) + "/? "
-								+ (pageIndex + 2) + "/"
-								+ m.getData().getInt("count"));
-					} else {
-						ui.setProgress("..." + (itemIndex + 1) + "/"
-								+ m.getData().getInt("count"));
+					if (pageCount > 0) {// 分页抓取
+						int c = m.getData().getInt("count");// 每页的可抓取项数
+						if (c > 1) {
+							ui.setProgress("..." + (itemIndex + 1) + "/" + c
+									+ " " + (pageIndex + 1) + "/" + pageCount
+									+ "p");
+						} else {
+							ui.setProgress("..." + (pageIndex + 1) + "/"
+									+ pageCount + "p");
+						}
+					} else {// 简单抓取
+						ui.setProgress("..." + (itemIndex + 1) + "/" + count);
 					}
 				} else if (m.what == EventType.GrabOnePage.ordinal()) {
 					pageIndex = m.getData().getInt("index");
 					Log.d(tag, "pageIndex=" + pageIndex);
 					// 显示抓取进度
-					ui.setProgress("..." + (pageIndex + 2) + "/"
-							+ m.getData().getInt("count"));
+					ui.setProgress("..." + (pageIndex + 1) + "/" + pageCount
+							+ "p");
 				} else if (m.what == EventType.Skip.ordinal()) {
+					int itemIndex = m.getData().getInt("index");
+					Log.d(tag, "itemIndex=" + itemIndex);
 					// 显示抓取进度
-					ui.setProgress("..." + m.getData().getInt("index") + "/"
-							+ m.getData().getInt("count"));
+					if (pageCount > 0) {// 分页抓取
+						int c = m.getData().getInt("count");
+						if (c > 1) {
+							ui.setProgress("..." + (itemIndex + 1) + "/" + c
+									+ " " + (pageIndex + 1) + "/" + pageCount
+									+ "p");
+						} else {
+							ui.setProgress("..." + (pageIndex + 1) + "/"
+									+ pageCount + "p");
+						}
+					} else {// 简单抓取
+						ui.setProgress("..." + (itemIndex + 1) + "/" + count);
+					}
 				} else if (m.what == EventType.Finished.ordinal()) {
 					Log.e(tag, "successCount=" + successCount);
 					if (successCount > 0) {
 						ui.addCount(successCount);// 累计成功抓取的总数
 					}
 					running = false;
-					ui.setProgress(getText(R.string.info_grabbed).toString()
-							+ " " + successCount);
 					ui.finish();
 				} else if (m.what == EventType.Error.ordinal()) {
 					Log.e(tag, "error:" + m.getData().getString("msg"));
@@ -236,7 +264,9 @@ public class Grabber {
 							Toast.LENGTH_LONG).show();
 
 					// 处理界面显示
-					ui.setProgress(getText(R.string.info_fireEeror).toString());
+					if (successCount > 0) {
+						ui.addCount(successCount);// 累计成功抓取的总数
+					}
 					ui.error();
 				}
 				super.handleMessage(m);

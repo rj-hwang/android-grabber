@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Grabber</string>
-    <string name="app_ver">v0.6 alpha7</string>
+    <string name="app_ver">v0.6 beta1</string>
     <string name="app_desc">More input\nMore harvest</string>
     <string name="about">About</string>
     <string name="info_grabbed">grabbed</string>
