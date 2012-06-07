@@ -14,7 +14,7 @@ public enum EventType {
 	/** 已抓取一页 */
 	GrabOnePage,
 	/** 被停止 */
-	Stoped,
+	Stopped,
 	/** 异常 */
 	Error,
 	/** 忽略 */

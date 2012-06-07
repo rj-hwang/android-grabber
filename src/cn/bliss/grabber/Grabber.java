@@ -93,7 +93,7 @@ public class Grabber {
 	 * 启动抓取线程
 	 */
 	protected void startGrabThread() {
-		Thread thread = new Thread(new Runnable() {
+		grabThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				// 将回调信息传给界面的UI线程显示
@@ -143,7 +143,7 @@ public class Grabber {
 							item.excute();
 						} else {// 被中途终止了
 							message = new Message();
-							message.what = EventType.Stoped.ordinal();// 停抓
+							message.what = EventType.Stopped.ordinal();// 停抓
 							data = new Bundle();
 							message.setData(data);
 							data.putString("uid", searcher.getUid());
@@ -171,7 +171,7 @@ public class Grabber {
 				}
 			}
 		});
-		thread.start();
+		grabThread.start();
 	}
 
 	private void initHandler() {
@@ -252,6 +252,27 @@ public class Grabber {
 					}
 					running = false;
 					ui.finish();
+				} else if (m.what == EventType.Stopped.ordinal()) {
+					int itemIndex = m.getData().getInt("index");
+					Log.e(tag, "successCount=" + successCount);
+					if (successCount > 0) {
+						ui.addCount(successCount);// 累计成功抓取的总数
+					}
+					running = false;
+					if (pageCount > 0) {// 分页抓取
+						int c = m.getData().getInt("count");
+						if (c > 1) {
+							ui.setProgress(getText(R.string.info_stoped) + " "
+									+ (itemIndex + 1) + "/" + c + " "
+									+ (pageIndex + 1) + "/" + pageCount + "p");
+						} else {
+							ui.setProgress(getText(R.string.info_stoped) + " "
+									+ (pageIndex + 1) + "/" + pageCount + "p");
+						}
+					} else {// 简单抓取
+						ui.setProgress(getText(R.string.info_stoped) + " "
+								+ (itemIndex + 1) + "/" + count);
+					}
 				} else if (m.what == EventType.Error.ordinal()) {
 					Log.e(tag, "error:" + m.getData().getString("msg"));
 					running = false;
