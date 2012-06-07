@@ -56,7 +56,7 @@
 		</searcher>
 		<searcher id="meinvmen_wangqiuzi01" type="paging">
 			<name>美女门-王秋紫-冬日里的女人</name>
-			<path>/grabber/美女门王秋紫</path>
+			<path>/grabber/美女门/王秋紫</path>
 			<url>http://www.mmeinv.com/post/wangqiuzi/8.html</url>
 			<selector>div.pic img</selector>
 			<pagingUrl>{urlName}_{pageNo}.html</pagingUrl>
